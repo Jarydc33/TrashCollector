@@ -10,10 +10,11 @@ namespace TrashCollectorApplication.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index","User");
+
         }
 
-        public ActionResult About()
+        public ActionResult AboutTEST()
         {
             ViewBag.Message = "Your application description page.";
 

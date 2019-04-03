@@ -23,14 +23,17 @@ namespace TrashCollectorApplication.Controllers
                 if (isAdminUser())
                 {
                     ViewBag.displayMenu = "Admin";
+                    return RedirectToAction("Index","Administrators");
                 }
                 else if (isEmployeeUser())
                 {
                     ViewBag.displayMenu = "Employee";
+                    return RedirectToAction("Index", "Employees");
                 }
                 else if (isClientUser())
                 {
                     ViewBag.displayMenu = "Client";
+                    return RedirectToAction("Index", "Clients");
                 }
             }
             return View();
