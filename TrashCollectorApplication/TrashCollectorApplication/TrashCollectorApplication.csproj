@@ -198,6 +198,10 @@
     <Compile Include="Migrations\201904031352437_RolesDone.Designer.cs">
       <DependentUpon>201904031352437_RolesDone.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904031408322_NewTest.cs" />
+    <Compile Include="Migrations\201904031408322_NewTest.Designer.cs">
+      <DependentUpon>201904031408322_NewTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -308,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904031352437_RolesDone.resx">
       <DependentUpon>201904031352437_RolesDone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904031408322_NewTest.resx">
+      <DependentUpon>201904031408322_NewTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

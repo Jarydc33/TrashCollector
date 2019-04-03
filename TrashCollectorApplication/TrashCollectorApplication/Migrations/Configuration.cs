@@ -17,47 +17,42 @@ namespace TrashCollectorApplication.Migrations
 
         protected override void Seed(TrashCollectorApplication.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            //if (!context.Roles.Any(r => r.Name == "Administrator"))
+            //{
+            //    var store = new RoleStore<IdentityRole>(context);
+            //    var manager = new RoleManager<IdentityRole>(store);
+            //    var role = new IdentityRole { Name = "Administrator" };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            //    manager.Create(role);
+            //}
 
-            if (!context.Roles.Any(r => r.Name == "Administrator"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Administrator" };
+            //if (!context.Users.Any(u => u.UserName == "Administrator"))
+            //{
+            //    var store = new UserStore<ApplicationUser>(context);
+            //    var manager = new UserManager<ApplicationUser>(store);
+            //    var user = new ApplicationUser { UserName = "Administrator" };
 
-                manager.Create(role);
-            }
+            //    manager.Create(user, "ChangeItAsap!");
+            //    manager.AddToRole(user.Id, "Administrator");
+            //}
 
-            if (!context.Users.Any(u => u.UserName == "Administrator"))
-            {
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "Administrator" };
+            //if (!context.Roles.Any(r => r.Name == "Employee"))
+            //{
+            //    var store = new RoleStore<IdentityRole>(context);
+            //    var manager = new RoleManager<IdentityRole>(store);
+            //    var role = new IdentityRole { Name = "Employee" };
 
-                manager.Create(user, "ChangeItAsap!");
-                manager.AddToRole(user.Id, "AppAdmin");
-            }
+            //    manager.Create(role);
+            //}
 
-            if (!context.Roles.Any(r => r.Name == "Employee"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Employee" };
+            //if (!context.Roles.Any(r => r.Name == "Client"))
+            //{
+            //    var store = new RoleStore<IdentityRole>(context);
+            //    var manager = new RoleManager<IdentityRole>(store);
+            //    var role = new IdentityRole { Name = "Client" };
 
-                manager.Create(role);
-            }
-
-            if (!context.Roles.Any(r => r.Name == "Client"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Client" };
-
-                manager.Create(role);
-            }
+            //    manager.Create(role);
+            //}
         }
     }
 }
