@@ -18,10 +18,11 @@ namespace TrashCollectorApplication.Controllers
         // GET: Clients
         public ActionResult Index()
         {
-            //string currentUserId = User.Identity.GetUserId();
-            //Client user = db.Clients.Where(c => c.id == currentUserId);
-            //Client user = db.Clients.Where(u => u.UserName == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();
-           
+            string currentUserId = User.Identity.GetUserId();
+            Client user = new Client();
+            user.ApplicationUserId = User.Identity.GetUserId();
+            user = db.Clients.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
+
             return View();
         }
 

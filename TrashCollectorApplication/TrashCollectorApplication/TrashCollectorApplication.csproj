@@ -183,29 +183,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904031231545_InitialMigration.cs" />
-    <Compile Include="Migrations\201904031231545_InitialMigration.Designer.cs">
-      <DependentUpon>201904031231545_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904031346504_UpdateRoles.cs" />
-    <Compile Include="Migrations\201904031346504_UpdateRoles.Designer.cs">
-      <DependentUpon>201904031346504_UpdateRoles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904031351340_Test.cs" />
-    <Compile Include="Migrations\201904031351340_Test.Designer.cs">
-      <DependentUpon>201904031351340_Test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904031352437_RolesDone.cs" />
-    <Compile Include="Migrations\201904031352437_RolesDone.Designer.cs">
-      <DependentUpon>201904031352437_RolesDone.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904031408322_NewTest.cs" />
-    <Compile Include="Migrations\201904031408322_NewTest.Designer.cs">
-      <DependentUpon>201904031408322_NewTest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904031924274_UpdateForeignKey.cs" />
-    <Compile Include="Migrations\201904031924274_UpdateForeignKey.Designer.cs">
-      <DependentUpon>201904031924274_UpdateForeignKey.cs</DependentUpon>
+    <Compile Include="Migrations\201904032041274_InitialMigration.cs" />
+    <Compile Include="Migrations\201904032041274_InitialMigration.Designer.cs">
+      <DependentUpon>201904032041274_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -308,23 +288,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904031231545_InitialMigration.resx">
-      <DependentUpon>201904031231545_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904031346504_UpdateRoles.resx">
-      <DependentUpon>201904031346504_UpdateRoles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904031351340_Test.resx">
-      <DependentUpon>201904031351340_Test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904031352437_RolesDone.resx">
-      <DependentUpon>201904031352437_RolesDone.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904031408322_NewTest.resx">
-      <DependentUpon>201904031408322_NewTest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904031924274_UpdateForeignKey.resx">
-      <DependentUpon>201904031924274_UpdateForeignKey.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904032041274_InitialMigration.resx">
+      <DependentUpon>201904032041274_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
