@@ -14,7 +14,7 @@ namespace TrashCollectorApplication.Controllers
 
         }
 
-        public ActionResult AboutTEST()
+        public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 

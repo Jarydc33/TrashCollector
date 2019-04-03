@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -10,7 +11,6 @@ using TrashCollectorApplication.Models;
 
 namespace TrashCollectorApplication.Controllers
 {
-    [Authorize]
     public class ClientsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,7 +18,11 @@ namespace TrashCollectorApplication.Controllers
         // GET: Clients
         public ActionResult Index()
         {
-            return View(db.Clients.ToList());
+            //string currentUserId = User.Identity.GetUserId();
+            //Client user = db.Clients.Where(c => c.id == currentUserId);
+            //Client user = db.Clients.Where(u => u.UserName == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();
+           
+            return View();
         }
 
         // GET: Clients/Details/5
@@ -38,6 +42,22 @@ namespace TrashCollectorApplication.Controllers
 
         // GET: Clients/Create
         public ActionResult Create()
+        {
+            return View();
+        }
+
+        public ActionResult RequestPickup()
+        {
+            return View();
+        }
+
+        public ActionResult SeeWhatYouOwe(int id)
+        {
+            var client = db.Clients.Where(c => c.id == id);
+            return View(client);
+        }
+
+        public ActionResult SuspendPickups()
         {
             return View();
         }
@@ -74,12 +94,17 @@ namespace TrashCollectorApplication.Controllers
             return View(client);
         }
 
+        public ActionResult ChangePickup()
+        {
+            return View();
+        }
+
         // POST: Clients/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,UserName,Password,FirstName,LastName,UserId,AmountOwed")] Client client)
+        public ActionResult Edit([Bind(Include = "id")] Client client)
         {
             if (ModelState.IsValid)
             {

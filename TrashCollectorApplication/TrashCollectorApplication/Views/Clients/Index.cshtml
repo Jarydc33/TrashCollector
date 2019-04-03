@@ -1,63 +1,13 @@
-﻿@model IEnumerable<TrashCollectorApplication.Models.Client>
+﻿@model TrashCollectorApplication.Models.Client
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Welcome";
 }
 
-<h2>Index</h2>
+<h1>THIS IS THE CLIENTS PAGE</h1>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AmountOwed)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountOwed)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
-
-</table>
+@Html.ActionLink("Create a New Pickup", "Create")
+@Html.ActionLink("Edit a Current Pickup", "ChangePickup", new { id = Model.id })
+@Html.ActionLink("Request a One Time Pickup", "RequestPickup", new { id = Model.id })
+@Html.ActionLink("See How Much You Owe", "SeeWhatYouOwe", new {id= Model.id })
+@Html.ActionLink("Suspend Your Pickups", "SuspendPickups", new { id = Model.id })

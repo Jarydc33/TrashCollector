@@ -203,6 +203,10 @@
     <Compile Include="Migrations\201904031408322_NewTest.Designer.cs">
       <DependentUpon>201904031408322_NewTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904031924274_UpdateForeignKey.cs" />
+    <Compile Include="Migrations\201904031924274_UpdateForeignKey.Designer.cs">
+      <DependentUpon>201904031924274_UpdateForeignKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -285,6 +289,7 @@
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Clients\SeeWhatYouOwe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -317,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904031408322_NewTest.resx">
       <DependentUpon>201904031408322_NewTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904031924274_UpdateForeignKey.resx">
+      <DependentUpon>201904031924274_UpdateForeignKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
