@@ -14,6 +14,9 @@ namespace TrashCollectorApplication.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int AmountOwed { get; set; }
+        public string PickupDate { get; set; }
+        public bool OneTimePickup { get; set; }
+        public string OneTimePickupDate { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId {get;set; }
