@@ -49,21 +49,25 @@ namespace TrashCollectorApplication.Controllers
             };
             return View(clientToAdd);
         }
-        //GET
-        public ActionResult CreateSchedule()
-        {
-
-            return View();
-        }
 
         public ActionResult RequestPickup()
         {
             return View();
         }
 
-        public ActionResult SuspendPickups()
+        public ActionResult SuspendPickups(int id)
         {
-            return View();
+            Client client = db.Clients.Include(c => c.ApplicationUser).SingleOrDefault(c => c.id == id);
+            return View(client);
+        }
+
+        [HttpPost]
+        public ActionResult SuspendPickups(Client client)
+        {
+            var clientToSuspend = db.Clients.Single(c => c.id == client.id);
+            clientToSuspend.PickupDayId = null;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -98,7 +102,7 @@ namespace TrashCollectorApplication.Controllers
             }
             return View(client);
         }
-        // POST
+        
         [HttpPost]
         public ActionResult Edit(Client client)
         {
@@ -109,16 +113,12 @@ namespace TrashCollectorApplication.Controllers
             clientToEdit.State = client.State;
             clientToEdit.Address = client.Address;
             clientToEdit.PickupDayId = client.PickupDayId;
-            //clientToEdit.EnumerableClient = db.PickupDays.ToList();
+            client.PickupDays = db.PickupDays.ToList();
             db.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        public ActionResult ChangePickup()
-        {
-            return View();
-        }
         // GET: Clients/Delete/5
         public ActionResult Delete(int? id)
         {

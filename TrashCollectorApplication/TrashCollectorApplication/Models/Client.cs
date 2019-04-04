@@ -30,7 +30,7 @@ namespace TrashCollectorApplication.Models
         public ApplicationUser ApplicationUser { get; set; }
 
         [ForeignKey("PickupDay")]
-        public int PickupDayId { get; set; }
+        public int? PickupDayId { get; set; }
         public PickupDay PickupDay { get; set; }
 
         public IEnumerable<PickupDay> PickupDays { get; set; }

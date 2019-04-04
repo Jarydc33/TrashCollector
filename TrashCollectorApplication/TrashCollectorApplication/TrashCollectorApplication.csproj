@@ -215,6 +215,10 @@
     <Compile Include="Migrations\201904041600056_EditedNumerableDay.Designer.cs">
       <DependentUpon>201904041600056_EditedNumerableDay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904041644557_PickupDayNullable.cs" />
+    <Compile Include="Migrations\201904041644557_PickupDayNullable.Designer.cs">
+      <DependentUpon>201904041644557_PickupDayNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -298,7 +302,7 @@
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Clients\SeeWhatYouOwe.cshtml" />
+    <Content Include="Views\Clients\SuspendPickups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904041600056_EditedNumerableDay.resx">
       <DependentUpon>201904041600056_EditedNumerableDay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041644557_PickupDayNullable.resx">
+      <DependentUpon>201904041644557_PickupDayNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

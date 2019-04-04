@@ -1,0 +1,20 @@
+﻿@model TrashCollectorApplication.Models.Client
+
+@{
+    ViewBag.Title = "SuspendPickups";
+}
+
+<h2>SuspendPickups</h2>
+
+<p>Are you sure you want to Suspend pickups?</p>
+
+
+@using (Html.BeginForm())
+{ 
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Yes" class="btn btn-default" />
+        </div>
+    </div>
+}
+@Html.ActionLink("Back To Home", "Index")
