@@ -32,7 +32,8 @@ namespace TrashCollectorApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
+            Client client = db.Clients.Include(c => c.ApplicationUser).SingleOrDefault(c => c.id == id); ;
+
             if (client == null)
             {
                 return HttpNotFound();
@@ -40,7 +41,6 @@ namespace TrashCollectorApplication.Controllers
             return View(client);
         }
 
-        // GET: Clients/Create
         public ActionResult Create()
         {
             Client clientToAdd = new Client();
@@ -58,22 +58,11 @@ namespace TrashCollectorApplication.Controllers
             return View();
         }
 
-        public ActionResult SeeWhatYouOwe(int id)
-        {
-            string currentUserId = User.Identity.GetUserId();
-            Client user = new Client();
-            user = db.Clients.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
-            return View(user);
-        }
-
         public ActionResult SuspendPickups()
         {
             return View();
         }
 
-        // POST: Clients/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Client client)

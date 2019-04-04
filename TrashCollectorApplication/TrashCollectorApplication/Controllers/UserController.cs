@@ -15,7 +15,7 @@ namespace TrashCollectorApplication.Controllers
         // GET: User
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated) //Potentially, add the authentication from this pages index to every page frmo the other controllers
             {
                 var user = User.Identity;
                 ViewBag.Name = user.Name;
