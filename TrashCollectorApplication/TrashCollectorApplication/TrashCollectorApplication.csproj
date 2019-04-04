@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201904032041274_InitialMigration.Designer.cs">
       <DependentUpon>201904032041274_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904032302170_NewClientDatabase.cs" />
+    <Compile Include="Migrations\201904032302170_NewClientDatabase.Designer.cs">
+      <DependentUpon>201904032302170_NewClientDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -290,6 +294,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904032041274_InitialMigration.resx">
       <DependentUpon>201904032041274_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904032302170_NewClientDatabase.resx">
+      <DependentUpon>201904032302170_NewClientDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

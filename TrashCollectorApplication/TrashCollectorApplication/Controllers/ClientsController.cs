@@ -20,10 +20,9 @@ namespace TrashCollectorApplication.Controllers
         {
             string currentUserId = User.Identity.GetUserId();
             Client user = new Client();
-            user.ApplicationUserId = User.Identity.GetUserId();
             user = db.Clients.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
 
-            return View();
+            return View(user);
         }
 
         // GET: Clients/Details/5
@@ -44,6 +43,13 @@ namespace TrashCollectorApplication.Controllers
         // GET: Clients/Create
         public ActionResult Create()
         {
+            Client clientToAdd = new Client();
+            return View(clientToAdd);
+        }
+        //GET
+        public ActionResult CreateSchedule()
+        {
+
             return View();
         }
 
@@ -68,10 +74,12 @@ namespace TrashCollectorApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,UserName,Password,FirstName,LastName,UserId,AmountOwed")] Client client)
+        public ActionResult Create(Client client)
         {
             if (ModelState.IsValid)
             {
+                string currentUserId = User.Identity.GetUserId();
+                client.ApplicationUserId = currentUserId;
                 db.Clients.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -142,13 +150,13 @@ namespace TrashCollectorApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
