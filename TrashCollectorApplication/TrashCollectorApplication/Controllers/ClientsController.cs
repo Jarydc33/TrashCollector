@@ -31,6 +31,7 @@ namespace TrashCollectorApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Client client = db.Clients.Include(c => c.ApplicationUser).SingleOrDefault(c => c.id == id);
 
             if (client == null)
@@ -50,9 +51,24 @@ namespace TrashCollectorApplication.Controllers
             return View(clientToAdd);
         }
 
-        public ActionResult RequestPickup()
+        public ActionResult RequestPickup(int id)
         {
-            return View();
+            var days = db.PickupDays.ToList();
+            Client client = new Client()
+            {
+                PickupDays = days
+            };
+            return View(client);
+        }
+
+        [HttpPost]
+        public ActionResult RequestPickup(Client client)
+        {
+            Client clientRequesting = db.Clients.Single(c => c.id == client.id);
+            clientRequesting.OneTimePickup = true;
+            clientRequesting.OneTimePickupDay = client.OneTimePickupDay;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public ActionResult SuspendPickups(int id)
@@ -86,7 +102,6 @@ namespace TrashCollectorApplication.Controllers
             return View(client);
         }
 
-        // GET: Clients/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)

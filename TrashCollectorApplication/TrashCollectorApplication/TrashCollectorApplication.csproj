@@ -303,6 +303,7 @@
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Clients\SuspendPickups.cshtml" />
+    <Content Include="Views\Clients\RequestPickup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

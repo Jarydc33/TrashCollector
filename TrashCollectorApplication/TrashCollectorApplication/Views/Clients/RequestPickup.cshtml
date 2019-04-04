@@ -1,0 +1,27 @@
+﻿@model TrashCollectorApplication.Models.Client
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>RequestPickup</h2>
+
+<p>What day would you like to schedule your pickup for?</p>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.PickupDay, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.OneTimePickupDay, new SelectList(Model.PickupDays, "id", "GarbagePickupDay"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.OneTimePickupDay, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+@Html.ActionLink("Back To Home", "Index")
