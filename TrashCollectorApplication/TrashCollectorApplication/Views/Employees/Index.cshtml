@@ -8,9 +8,32 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Filter by Day","Filter")
+    @Html.ActionLink("Confirm a pickup", "Confirm") @*This will give a charge to the Client*@
+
 </p>
 <table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("First Name")
+        </th>
+        <th>
+            @Html.DisplayName("Last Name")
+        </th>
+        <th>
+            @Html.DisplayName("Zip Code")
+        </th>
+        <th>
+            @Html.DisplayName("Regular Pickup")
+        </th>
+        <th>
+            @Html.DisplayName("One-time Pickup")
+        </th>
+        <th></th>
 
+
+
+    </tr>
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -26,7 +49,6 @@
             @Html.DisplayFor(modelItem => item.PickupDay.GarbagePickupDay)
         </td>
         <td>
-            @Html.DisplayNameFor(model => model.PickupDay.id)
             @{
                 var day = item.PickupDays.Where(model => model.id == item.OneTimePickupDayId).FirstOrDefault();
             }
