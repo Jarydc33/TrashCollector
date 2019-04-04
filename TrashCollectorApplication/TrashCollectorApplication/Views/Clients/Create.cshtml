@@ -58,8 +58,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.PickupDay, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*@Html.DropDownListFor(model => model.PickupDay, new SelectList(new string[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" }, new { @class = "form-control" }))*@
+        <div class="col-md-10">           
             @Html.DropDownListFor(model => model.PickupDayId, new SelectList(Model.PickupDays,"id","GarbagePickupDay"),"", new { @class = "form-control"})
             @Html.ValidationMessageFor(model => model.PickupDayId, "", new { @class = "text-danger" })
         </div>

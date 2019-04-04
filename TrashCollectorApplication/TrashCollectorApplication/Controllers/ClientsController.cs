@@ -82,7 +82,9 @@ namespace TrashCollectorApplication.Controllers
         [HttpPost]
         public ActionResult SuspendPickups(Client client)
         {
-            client = db.Clients.Single(c => c.id == client.id);
+            var suspendClient = db.Clients.Single(c => c.id == client.id);
+            suspendClient.SuspensionStart = client.SuspensionStart;
+            suspendClient.SuspensionEnd = client.SuspensionEnd;
             client.AccountSuspended = true;
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -235,6 +235,10 @@
     <Compile Include="Migrations\201904041842176_FixedTheSameMethod.Designer.cs">
       <DependentUpon>201904041842176_FixedTheSameMethod.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904041904551_SuspensionDates.cs" />
+    <Compile Include="Migrations\201904041904551_SuspensionDates.Designer.cs">
+      <DependentUpon>201904041904551_SuspensionDates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -376,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904041842176_FixedTheSameMethod.resx">
       <DependentUpon>201904041842176_FixedTheSameMethod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041904551_SuspensionDates.resx">
+      <DependentUpon>201904041904551_SuspensionDates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
