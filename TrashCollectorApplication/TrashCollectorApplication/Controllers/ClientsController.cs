@@ -31,8 +31,10 @@ namespace TrashCollectorApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
-            Client client = db.Clients.Include(c => c.ApplicationUser).SingleOrDefault(c => c.id == id);
+
+            Client client = db.Clients.SingleOrDefault(c => c.id == id);
+            client.PickupDays = db.PickupDays.ToList();
+            client.ApplicationUser = db.Users.Where(c => c.Id == client.ApplicationUserId).FirstOrDefault();
 
             if (client == null)
             {
