@@ -23,6 +23,7 @@ namespace TrashCollectorApplication.Models
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Client> Clients { get; set; }
+        public DbSet<PickupDay> PickupDays { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
