@@ -60,8 +60,10 @@ namespace TrashCollectorApplication.Controllers
 
         public ActionResult SeeWhatYouOwe(int id)
         {
-            var client = db.Clients.Where(c => c.id == id);
-            return View(client);
+            string currentUserId = User.Identity.GetUserId();
+            Client user = new Client();
+            user = db.Clients.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
+            return View(user);
         }
 
         public ActionResult SuspendPickups()
