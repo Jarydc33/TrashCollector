@@ -73,15 +73,15 @@ namespace TrashCollectorApplication.Controllers
 
         public ActionResult SuspendPickups(int id)
         {
-            Client client = db.Clients.Include(c => c.ApplicationUser).SingleOrDefault(c => c.id == id);
+            Client client = new Client();
             return View(client);
         }
 
         [HttpPost]
         public ActionResult SuspendPickups(Client client)
         {
-            var clientToSuspend = db.Clients.Single(c => c.id == client.id);
-            clientToSuspend.PickupDayId = null;
+            client = db.Clients.Single(c => c.id == client.id);
+            client.AccountSuspended = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -109,7 +109,8 @@ namespace TrashCollectorApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Client client = db.Clients.Include(c => c.ApplicationUser).SingleOrDefault(c => c.id == id);
+            Client client = db.Clients.SingleOrDefault(c => c.id == id);
+            client.PickupDays = db.PickupDays.ToList();
 
             if (client == null)
             {

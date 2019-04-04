@@ -219,6 +219,10 @@
     <Compile Include="Migrations\201904041644557_PickupDayNullable.Designer.cs">
       <DependentUpon>201904041644557_PickupDayNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904041801425_AddedAccountSuspension.cs" />
+    <Compile Include="Migrations\201904041801425_AddedAccountSuspension.Designer.cs">
+      <DependentUpon>201904041801425_AddedAccountSuspension.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -348,6 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904041644557_PickupDayNullable.resx">
       <DependentUpon>201904041644557_PickupDayNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041801425_AddedAccountSuspension.resx">
+      <DependentUpon>201904041801425_AddedAccountSuspension.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
