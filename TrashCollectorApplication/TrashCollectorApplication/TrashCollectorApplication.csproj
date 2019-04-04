@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201904041904551_SuspensionDates.Designer.cs">
       <DependentUpon>201904041904551_SuspensionDates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904041921552_UpdatedEmployee.cs" />
+    <Compile Include="Migrations\201904041921552_UpdatedEmployee.Designer.cs">
+      <DependentUpon>201904041921552_UpdatedEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -383,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904041904551_SuspensionDates.resx">
       <DependentUpon>201904041904551_SuspensionDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041921552_UpdatedEmployee.resx">
+      <DependentUpon>201904041921552_UpdatedEmployee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

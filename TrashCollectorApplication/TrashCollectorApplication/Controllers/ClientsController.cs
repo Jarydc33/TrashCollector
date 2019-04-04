@@ -20,7 +20,7 @@ namespace TrashCollectorApplication.Controllers
         {
             string currentUserId = User.Identity.GetUserId();
             Client user = new Client();
-            user = db.Clients.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
+            user = db.Clients.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault(); 
 
             return View(user);
         }

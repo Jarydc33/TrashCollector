@@ -25,6 +25,7 @@ namespace TrashCollectorApplication.Models
         public string Address { get; set; }
         public string SuspensionStart { get; set; }
         public string SuspensionEnd { get; set; }
+        public bool PickupComplete { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId {get;set; }
