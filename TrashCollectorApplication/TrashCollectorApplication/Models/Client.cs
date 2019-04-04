@@ -15,6 +15,7 @@ namespace TrashCollectorApplication.Models
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Display(Name = "Amount Owed : $")]
         public int AmountOwed { get; set; }
         public string PickupDay { get; set; }
         public bool OneTimePickup { get; set; }

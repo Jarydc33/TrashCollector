@@ -25,14 +25,13 @@ namespace TrashCollectorApplication.Controllers
             return View(user);
         }
 
-        // GET: Clients/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Include(c => c.ApplicationUser).SingleOrDefault(c => c.id == id); ;
+            Client client = db.Clients.Include(c => c.ApplicationUser).SingleOrDefault(c => c.id == id);
 
             if (client == null)
             {
@@ -86,35 +85,36 @@ namespace TrashCollectorApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
+
+            Client client = db.Clients.Include(c => c.ApplicationUser).SingleOrDefault(c => c.id == id);
+
             if (client == null)
             {
                 return HttpNotFound();
             }
             return View(client);
         }
+        // POST
+        [HttpPost]
+        public ActionResult Edit(Client client)
+        {
+            var clientToEdit = db.Clients.Single(c => c.id == client.id);
+            clientToEdit.FirstName = client.FirstName;
+            clientToEdit.LastName = client.LastName;
+            clientToEdit.ZipCode = client.ZipCode;
+            clientToEdit.State = client.State;
+            clientToEdit.Address = client.Address;
+            clientToEdit.PickupDay = client.PickupDay;
+            //clientToEdit.EnumerableClient = db.PickupDays.ToList();
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
         public ActionResult ChangePickup()
         {
             return View();
         }
-
-        // POST: Clients/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id")] Client client)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(client).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(client);
-        }
-
         // GET: Clients/Delete/5
         public ActionResult Delete(int? id)
         {
