@@ -42,7 +42,11 @@ namespace TrashCollectorApplication.Controllers
 
         public ActionResult Create()
         {
-            Client clientToAdd = new Client();
+            var days = db.PickupDays.ToList();
+            Client clientToAdd = new Client()
+            {
+                PickupDays = days
+            };
             return View(clientToAdd);
         }
         //GET
@@ -104,7 +108,7 @@ namespace TrashCollectorApplication.Controllers
             clientToEdit.ZipCode = client.ZipCode;
             clientToEdit.State = client.State;
             clientToEdit.Address = client.Address;
-            clientToEdit.PickupDay = client.PickupDay;
+            clientToEdit.PickupDayId = client.PickupDayId;
             //clientToEdit.EnumerableClient = db.PickupDays.ToList();
             db.SaveChanges();
 

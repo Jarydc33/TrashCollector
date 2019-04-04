@@ -207,6 +207,14 @@
     <Compile Include="Migrations\201904041419038_SeedingDatabase.Designer.cs">
       <DependentUpon>201904041419038_SeedingDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904041553045_PickupDayFK.cs" />
+    <Compile Include="Migrations\201904041553045_PickupDayFK.Designer.cs">
+      <DependentUpon>201904041553045_PickupDayFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904041600056_EditedNumerableDay.cs" />
+    <Compile Include="Migrations\201904041600056_EditedNumerableDay.Designer.cs">
+      <DependentUpon>201904041600056_EditedNumerableDay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -326,6 +334,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904041419038_SeedingDatabase.resx">
       <DependentUpon>201904041419038_SeedingDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041553045_PickupDayFK.resx">
+      <DependentUpon>201904041553045_PickupDayFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041600056_EditedNumerableDay.resx">
+      <DependentUpon>201904041600056_EditedNumerableDay.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
