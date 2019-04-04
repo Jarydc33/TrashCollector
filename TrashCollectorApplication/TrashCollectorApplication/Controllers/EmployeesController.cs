@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,7 +18,14 @@ namespace TrashCollectorApplication.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            return View(db.Employees.ToList());
+            string currentUserId = User.Identity.GetUserId();
+            Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
+            var clientsByZip = db.Clients.Where(c => c.ZipCode == user.ZipCode).ToList();
+            foreach (var client in clientsByZip)
+            {
+                client.PickupDays = db.PickupDays.ToList();
+            }
+            return View(clientsByZip);
         }
 
         // GET: Employees/Details/5
@@ -35,21 +43,20 @@ namespace TrashCollectorApplication.Controllers
             return View(employee);
         }
 
-        // GET: Employees/Create
         public ActionResult Create()
         {
-            return View();
+            Employee employeeToAdd = new Employee();
+            return View(employeeToAdd);
         }
 
-        // POST: Employees/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,UserName,Password,FirstName,LastName,EmployeeId")] Employee employee)
+        public ActionResult Create(Employee employee)
         {
             if (ModelState.IsValid)
             {
+                string currentUserId = User.Identity.GetUserId();
+                employee.ApplicationUserId = currentUserId;
                 db.Employees.Add(employee);
                 db.SaveChanges();
                 return RedirectToAction("Index");

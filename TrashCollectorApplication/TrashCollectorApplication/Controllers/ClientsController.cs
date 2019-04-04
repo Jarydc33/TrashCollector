@@ -98,6 +98,7 @@ namespace TrashCollectorApplication.Controllers
             {
                 string currentUserId = User.Identity.GetUserId();
                 client.ApplicationUserId = currentUserId;
+                client.PickupComplete = false;
                 db.Clients.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");
