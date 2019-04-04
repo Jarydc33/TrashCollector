@@ -12,8 +12,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PickupDay, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.OneTimePickupDay, new SelectList(Model.PickupDays, "id", "GarbagePickupDay"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.OneTimePickupDay, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.OneTimePickupDayId, new SelectList(Model.PickupDays, "id", "GarbagePickupDay"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.OneTimePickupDayId, "", new { @class = "text-danger" })
         </div>
     </div>
 

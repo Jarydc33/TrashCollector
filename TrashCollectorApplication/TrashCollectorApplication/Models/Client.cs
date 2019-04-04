@@ -19,7 +19,7 @@ namespace TrashCollectorApplication.Models
         public int AmountOwed { get; set; }
         public bool AccountSuspended { get; set; }
         public bool OneTimePickup { get; set; }
-        public string OneTimePickupDay { get; set; }
+        //public string OneTimePickupDay { get; set; }
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
         public string State { get; set; }
@@ -32,6 +32,7 @@ namespace TrashCollectorApplication.Models
         [ForeignKey("PickupDay")]
         [Display(Name = "Pickup Day")]
         public int? PickupDayId { get; set; }
+        public int? OneTimePickupDayId { get; set; }
         public PickupDay PickupDay { get; set; }
 
         public IEnumerable<PickupDay> PickupDays { get; set; }

@@ -74,6 +74,17 @@
             @Html.DisplayFor(model => model.Address)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.PickupDay.id)
+        </dt>
+
+        <dd>
+            @{ 
+                var day = Model.PickupDays.Where(model => model.id == Model.OneTimePickupDayId).FirstOrDefault();
+            }
+            @Html.DisplayFor(model => day.GarbagePickupDay)
+        </dd>
+
     </dl>
 </div>
 <p>

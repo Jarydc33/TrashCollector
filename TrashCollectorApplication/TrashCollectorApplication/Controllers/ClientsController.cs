@@ -68,7 +68,7 @@ namespace TrashCollectorApplication.Controllers
         {
             Client clientRequesting = db.Clients.Single(c => c.id == client.id);
             clientRequesting.OneTimePickup = true;
-            clientRequesting.OneTimePickupDay = client.OneTimePickupDay;
+            clientRequesting.OneTimePickupDayId = client.OneTimePickupDayId;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
