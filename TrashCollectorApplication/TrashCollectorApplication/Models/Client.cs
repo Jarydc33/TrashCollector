@@ -11,12 +11,15 @@ namespace TrashCollectorApplication.Models
     {
         [Key]
         public int id { get; set; }
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
         public int AmountOwed { get; set; }
         public string PickupDay { get; set; }
         public bool OneTimePickup { get; set; }
         public string OneTimePickupDay { get; set; }
+        [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
         public string State { get; set; }
         public string Address { get; set; }
