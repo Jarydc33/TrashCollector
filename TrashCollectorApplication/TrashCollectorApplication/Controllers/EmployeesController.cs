@@ -15,8 +15,19 @@ namespace TrashCollectorApplication.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Employees
-        public ActionResult Index()
+        public ActionResult Index(List<Client> filteredClient)
+        {
+            //string currentUserId = User.Identity.GetUserId();
+            //Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
+            //var clientsByZip = db.Clients.Where(c => c.ZipCode == user.ZipCode).ToList();
+            //foreach (var client in clientsByZip)
+            //{
+            //    client.PickupDays = db.PickupDays.ToList();
+            //}
+            return View("Index",filteredClient);
+        }
+
+        public ActionResult FilterByZip()
         {
             string currentUserId = User.Identity.GetUserId();
             Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
@@ -25,10 +36,9 @@ namespace TrashCollectorApplication.Controllers
             {
                 client.PickupDays = db.PickupDays.ToList();
             }
-            return View(clientsByZip);
+            return Index(clientsByZip);
         }
 
-        // GET: Employees/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -65,7 +75,28 @@ namespace TrashCollectorApplication.Controllers
             return View(employee);
         }
 
-        // GET: Employees/Edit/5
+        public ActionResult Filter()
+        {
+            var days = db.PickupDays.ToList();
+            Client client = new Client()
+            {
+                PickupDays = days
+            };
+            return FilterByDay(client);
+        }
+        
+        public ActionResult FilterByDay(Client filteredClient)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
+            var clientsByDay = db.Clients.Where(c => c.ZipCode == user.ZipCode && c.PickupDayId == filteredClient.PickupDayId).ToList();
+            foreach (var client in clientsByDay)
+            {
+                client.PickupDays = db.PickupDays.ToList();
+            }
+            return Index(clientsByDay);
+        }
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,9 +111,6 @@ namespace TrashCollectorApplication.Controllers
             return View(employee);
         }
 
-        // POST: Employees/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,UserName,Password,FirstName,LastName,EmployeeId")] Employee employee)
@@ -96,7 +124,6 @@ namespace TrashCollectorApplication.Controllers
             return View(employee);
         }
 
-        // GET: Employees/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,7 +138,6 @@ namespace TrashCollectorApplication.Controllers
             return View(employee);
         }
 
-        // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

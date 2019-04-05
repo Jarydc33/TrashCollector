@@ -28,7 +28,7 @@ namespace TrashCollectorApplication.Controllers
                 else if (isEmployeeUser())
                 {
                     ViewBag.displayMenu = "Employee";
-                    return RedirectToAction("Index", "Employees");
+                    return RedirectToAction("FilterByZip", "Employees");
                 }
                 else if (isClientUser())
                 {
