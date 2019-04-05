@@ -18,17 +18,8 @@ namespace TrashCollectorApplication.Controllers
 
         public ActionResult Index(List<Client> filteredClient, string dayOfWeek)
         {
-            
-            ViewBag.DaysList = new List<ListItem>
-            {
-                new ListItem { Text = "Monday", Value = "Monday" },
-                new ListItem { Value = "Tuesday", Text = "Tuesday" },
-                new ListItem { Value = "Wednesday", Text = "Wednesday" },
-                new ListItem { Value = "Thursday", Text = "Thursday" },
-                new ListItem { Value = "Friday", Text = "Friday" },
-                new ListItem { Value = "Saturday", Text = "Saturday" },
-                new ListItem { Value = "Sunday", Text = "Sunday" }
-            };
+            ViewBag.DayList = new SelectList(db.PickupDays.ToList(), "id", "GarbagePickupDay");
+
             if (dayOfWeek == null)
             {
                 string currentUserId = User.Identity.GetUserId();
@@ -42,15 +33,19 @@ namespace TrashCollectorApplication.Controllers
             }
             else
             {
-                var days = db.PickupDays.ToList();
-                Client client = new Client()
+                int? dayId = null;
+                try
                 {
-                    PickupDays = days
-                };
-
+                    dayId = int.Parse(dayOfWeek);
+                }
+                catch
+                {
+                    dayId = null;
+                }
+                
                 string currentUserId = User.Identity.GetUserId();
                 Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
-                var clientsByDay = db.Clients.Where(c => c.ZipCode == user.ZipCode && c.PickupDay.GarbagePickupDay == dayOfWeek).ToList();
+                var clientsByDay = db.Clients.Where(c => c.ZipCode == user.ZipCode && c.PickupDayId == dayId).ToList();
                 foreach (var clients in clientsByDay)
                 {
                     clients.PickupDays = db.PickupDays.ToList();

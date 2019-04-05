@@ -16,7 +16,8 @@
 {
 <div class="form-horizontal">
     >    <div class="form-group">
-        @Html.DropDownList("dayOfWeek", new SelectList(ViewBag.DaysList, "Value", "Text"))
+        @Html.DropDownList("dayOfWeek", (SelectList)ViewBag.DayList,"Select Day", new { @class = "form-control"})
+        @*@Html.DropDownList("dayOfWeek", new SelectList(ViewBag.DaysList, "Value", "Text"))*@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
