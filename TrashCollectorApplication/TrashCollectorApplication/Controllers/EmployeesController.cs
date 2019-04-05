@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,7 +17,6 @@ namespace TrashCollectorApplication.Controllers
     public class EmployeesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        Keys MyKey = new Keys();
 
         public ActionResult Index(List<Client> filteredClient, string dayOfWeek)
         {
@@ -128,9 +129,33 @@ namespace TrashCollectorApplication.Controllers
 
         public ActionResult InitializeMap(int? id)
         {
-            Client client = new Client();
-            ViewBag.Key = "https://maps.googleapis.com/maps/api/js?key=" + MyKey.key + "& callback=initMap";
+            Client client = db.Clients.Find(id);
+            GetLatLong(client);
+            //ViewBag.Key = "https://maps.googleapis.com/maps/api/js?key=" + MyKey.key + "& callback=initMap";
             return View(client);
+        }
+
+        public void GetLatLong(Client client)
+        {
+            GoogleMap myMap = new GoogleMap();
+            string strurltest = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address+ ",+Belgium,+"+client.State+"&key=";
+            WebRequest requestObject = WebRequest.Create(strurltest);
+            requestObject.Method = "GET";
+            HttpWebResponse responseObject = null;
+            responseObject = (HttpWebResponse)requestObject.GetResponse();
+
+            string strresulttest = null;
+            using (Stream stream = responseObject.GetResponseStream())
+            {
+                StreamReader sr = new StreamReader(stream);
+                strresulttest = sr.ReadToEnd();
+                sr.Close();
+            }
+
+            myMap = JsonConvert.DeserializeObject<GoogleMap>(strresulttest);
+            float lat = myMap.results[0].geometry.location.lat;
+            float longitutde = myMap.results[0].geometry.location.lng;
+
         }
 
         public ActionResult Delete(int? id)
@@ -165,5 +190,28 @@ namespace TrashCollectorApplication.Controllers
             }
             base.Dispose(disposing);
         }
+    }
+
+    public class GoogleMap
+    {
+        public Result[] results { get; set; }
+        public string status { get; set; }
+    }
+
+    public class Result
+    {
+        public Geometry geometry { get; set; }
+    }
+
+    public class Geometry
+    {
+        public Location location { get; set; }
+        public string location_type { get; set; }
+    }
+
+    public class Location
+    {
+        public float lat { get; set; }
+        public float lng { get; set; }
     }
 }
