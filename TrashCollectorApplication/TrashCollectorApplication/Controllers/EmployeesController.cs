@@ -15,6 +15,7 @@ namespace TrashCollectorApplication.Controllers
     public class EmployeesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        Keys MyKey = new Keys();
 
         public ActionResult Index(List<Client> filteredClient, string dayOfWeek)
         {
@@ -128,6 +129,7 @@ namespace TrashCollectorApplication.Controllers
         public ActionResult InitializeMap(int? id)
         {
             Client client = new Client();
+            ViewBag.Key = "https://maps.googleapis.com/maps/api/js?key=" + MyKey.key + "& callback=initMap";
             return View(client);
         }
 
