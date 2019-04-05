@@ -16,8 +16,9 @@ namespace TrashCollectorApplication.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index(string dayOfWeek, List<Client> filteredClient)
+        public ActionResult Index(List<Client> filteredClient, string dayOfWeek)
         {
+            
             ViewBag.DaysList = new List<ListItem>
             {
                 new ListItem { Text = "Monday", Value = "Monday" },
@@ -30,7 +31,14 @@ namespace TrashCollectorApplication.Controllers
             };
             if (dayOfWeek == null)
             {
-                return View("Index", filteredClient);
+                string currentUserId = User.Identity.GetUserId();
+                Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
+                var clientsByZip = db.Clients.Where(c => c.ZipCode == user.ZipCode).ToList();
+                foreach (var client in clientsByZip)
+                {
+                    client.PickupDays = db.PickupDays.ToList();
+                }
+                return View(clientsByZip);
             }
             else
             {
@@ -42,26 +50,14 @@ namespace TrashCollectorApplication.Controllers
 
                 string currentUserId = User.Identity.GetUserId();
                 Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
-                var clientsByDay = db.Clients.Where(c => c.ZipCode == user.ZipCode && c.PickupDayId == client.PickupDayId).ToList();
+                var clientsByDay = db.Clients.Where(c => c.ZipCode == user.ZipCode && c.PickupDay.GarbagePickupDay == dayOfWeek).ToList();
                 foreach (var clients in clientsByDay)
                 {
                     clients.PickupDays = db.PickupDays.ToList();
                 }
-                return View("Index",clientsByDay);
+                return View(clientsByDay);
             }
             
-        }
-
-        public ActionResult FilterByZip()
-        {
-            string currentUserId = User.Identity.GetUserId();
-            Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
-            var clientsByZip = db.Clients.Where(c => c.ZipCode == user.ZipCode).ToList();
-            foreach (var client in clientsByZip)
-            {
-                client.PickupDays = db.PickupDays.ToList();
-            }
-            return Index(null, clientsByZip);
         }
 
         public ActionResult Confirm(int id)
@@ -69,7 +65,7 @@ namespace TrashCollectorApplication.Controllers
             Client client = db.Clients.Find(id);
             client.AmountOwed += 35;
             db.SaveChanges();
-            return View(client);
+            return RedirectToAction("FilterByZip");
         }
 
 
