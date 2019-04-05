@@ -66,16 +66,15 @@ namespace TrashCollectorApplication.Controllers
 
         public ActionResult Details(int? id)
         {
+            Client client = db.Clients.Find(id);
+
+            client.ApplicationUser = db.Users.Where(c => c.Id == client.ApplicationUserId).FirstOrDefault();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            return View(employee);
+            return View(client);
         }
 
         public ActionResult Create()
@@ -124,6 +123,12 @@ namespace TrashCollectorApplication.Controllers
                 return RedirectToAction("Index");
             }
             return View(employee);
+        }
+
+        public ActionResult InitializeMap(int? id)
+        {
+            Client client = new Client();
+            return View(client);
         }
 
         public ActionResult Delete(int? id)
