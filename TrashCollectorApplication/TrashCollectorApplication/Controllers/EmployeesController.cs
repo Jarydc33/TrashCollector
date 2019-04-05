@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using TrashCollectorApplication.Models;
 
 namespace TrashCollectorApplication.Controllers
@@ -15,16 +16,40 @@ namespace TrashCollectorApplication.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index(List<Client> filteredClient)
+        public ActionResult Index(string dayOfWeek, List<Client> filteredClient)
         {
-            //string currentUserId = User.Identity.GetUserId();
-            //Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
-            //var clientsByZip = db.Clients.Where(c => c.ZipCode == user.ZipCode).ToList();
-            //foreach (var client in clientsByZip)
-            //{
-            //    client.PickupDays = db.PickupDays.ToList();
-            //}
-            return View("Index",filteredClient);
+            ViewBag.DaysList = new List<ListItem>
+            {
+                new ListItem { Text = "Monday", Value = "Monday" },
+                new ListItem { Value = "Tuesday", Text = "Tuesday" },
+                new ListItem { Value = "Wednesday", Text = "Wednesday" },
+                new ListItem { Value = "Thursday", Text = "Thursday" },
+                new ListItem { Value = "Friday", Text = "Friday" },
+                new ListItem { Value = "Saturday", Text = "Saturday" },
+                new ListItem { Value = "Sunday", Text = "Sunday" }
+            };
+            if (dayOfWeek == null)
+            {
+                return View("Index", filteredClient);
+            }
+            else
+            {
+                var days = db.PickupDays.ToList();
+                Client client = new Client()
+                {
+                    PickupDays = days
+                };
+
+                string currentUserId = User.Identity.GetUserId();
+                Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
+                var clientsByDay = db.Clients.Where(c => c.ZipCode == user.ZipCode && c.PickupDayId == client.PickupDayId).ToList();
+                foreach (var clients in clientsByDay)
+                {
+                    clients.PickupDays = db.PickupDays.ToList();
+                }
+                return View("Index",clientsByDay);
+            }
+            
         }
 
         public ActionResult FilterByZip()
@@ -36,8 +61,17 @@ namespace TrashCollectorApplication.Controllers
             {
                 client.PickupDays = db.PickupDays.ToList();
             }
-            return Index(clientsByZip);
+            return Index(null, clientsByZip);
         }
+
+        public ActionResult Confirm(int id)
+        {
+            Client client = db.Clients.Find(id);
+            client.AmountOwed += 35;
+            db.SaveChanges();
+            return View(client);
+        }
+
 
         public ActionResult Details(int? id)
         {
@@ -74,29 +108,6 @@ namespace TrashCollectorApplication.Controllers
 
             return View(employee);
         }
-
-        public ActionResult Filter()
-        {
-            var days = db.PickupDays.ToList();
-            Client client = new Client()
-            {
-                PickupDays = days
-            };
-            return FilterByDay(client);
-        }
-        
-        public ActionResult FilterByDay(Client filteredClient)
-        {
-            string currentUserId = User.Identity.GetUserId();
-            Employee user = db.Employees.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
-            var clientsByDay = db.Clients.Where(c => c.ZipCode == user.ZipCode && c.PickupDayId == filteredClient.PickupDayId).ToList();
-            foreach (var client in clientsByDay)
-            {
-                client.PickupDays = db.PickupDays.ToList();
-            }
-            return Index(clientsByDay);
-        }
-
         public ActionResult Edit(int? id)
         {
             if (id == null)
