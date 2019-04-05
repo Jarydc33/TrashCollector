@@ -5,7 +5,7 @@ using System.Web;
 
 namespace TrashCollectorApplication
 {
-    public class Keys
+    public class MyKeys
     {
 
         public  string key = "AIzaSyCbrKPu3I5jBBkG3ys6DQptRZahZ9jpGMI";
