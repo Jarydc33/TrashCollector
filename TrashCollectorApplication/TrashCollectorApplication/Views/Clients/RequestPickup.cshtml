@@ -4,6 +4,14 @@
     ViewBag.Title = "Edit";
 }
 
+@section scripts{
+    <script type="text/javascript">
+            $(function() {
+                $(".datepicker").datepicker();
+    });
+    </script>
+}
+
 <h2>RequestPickup</h2>
 
 <p>What day would you like to schedule your pickup for?</p>
@@ -12,7 +20,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PickupDay, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.OneTimePickupDayId, new SelectList(Model.PickupDays, "id", "GarbagePickupDay"), "", new { @class = "form-control" })
+            @Html.EditorFor(model => model.OneTimePickupDate, new { htmlAttributes = new { @class = "form-control datepicker", @id = "datepicker" } })
             @Html.ValidationMessageFor(model => model.OneTimePickupDayId, "", new { @class = "text-danger" })
         </div>
     </div>

@@ -67,7 +67,7 @@ namespace TrashCollectorApplication.Controllers
         public ActionResult RequestPickup(Client client)
         {
             Client clientRequesting = db.Clients.Single(c => c.id == client.id);
-            clientRequesting.OneTimePickupDayId = client.OneTimePickupDayId;
+            clientRequesting.OneTimePickupDate = client.OneTimePickupDate;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -82,8 +82,8 @@ namespace TrashCollectorApplication.Controllers
         public ActionResult SuspendPickups(Client client)
         {
             var suspendClient = db.Clients.Single(c => c.id == client.id);
-            suspendClient.SuspensionStart = client.SuspensionStart;
-            suspendClient.SuspensionEnd = client.SuspensionEnd;
+            suspendClient.SuspensionStartDate = client.SuspensionStartDate;
+            suspendClient.SuspensionEndDate = client.SuspensionEndDate;
             client.AccountSuspended = true;
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -97,6 +97,9 @@ namespace TrashCollectorApplication.Controllers
             {
                 string currentUserId = User.Identity.GetUserId();
                 client.ApplicationUserId = currentUserId;
+                client.OneTimePickupDate = null;
+                client.SuspensionStartDate = null;
+                client.SuspensionEndDate = null;
                 db.Clients.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");

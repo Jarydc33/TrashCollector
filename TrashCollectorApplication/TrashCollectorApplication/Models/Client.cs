@@ -23,8 +23,15 @@ namespace TrashCollectorApplication.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Address { get; set; }
-        public string SuspensionStart { get; set; }
-        public string SuspensionEnd { get; set; }
+        [Display(Name = "Suspension Start Date")]
+        [DataType(DataType.Date)]
+        public DateTime? SuspensionStartDate { get; set; }
+        [Display(Name = "Suspension End Date")]
+        [DataType(DataType.Date)]
+        public DateTime? SuspensionEndDate { get; set; }
+        [Display(Name = "One-time Pickup Date")]
+        [DataType(DataType.Date)]
+        public DateTime? OneTimePickupDate { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId {get;set; }

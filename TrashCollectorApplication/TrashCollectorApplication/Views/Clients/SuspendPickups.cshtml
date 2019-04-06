@@ -4,6 +4,14 @@
     ViewBag.Title = "SuspendPickups";
 }
 
+@section scripts{
+    <script type="text/javascript">
+            $(function() {
+                $(".datepicker").datepicker();
+    });
+    </script>
+    }
+
 <h2>SuspendPickups</h2>
 
 <p>Are you sure you want to Suspend pickups?</p>
@@ -11,10 +19,11 @@
 
 @using (Html.BeginForm())
 {
+
     <div class="form-group">
         @Html.Label("Suspension start date: ", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SuspensionStart, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.SuspensionStartDate, new { htmlAttributes = new { @class = "form-control datepicker", @id = "datepicker" } })
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -22,14 +31,14 @@
     <div class="form-group">
         @Html.Label("Suspension end date: ", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SuspensionEnd, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.SuspensionEndDate, new { htmlAttributes = new { @class = "form-control datepicker", @id = "datepicker" } })
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Yes" class="btn btn-default" />
+            <input type="submit" value="Submit" class="btn btn-default" />
         </div>
     </div>
 }
