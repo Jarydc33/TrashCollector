@@ -138,7 +138,7 @@ namespace TrashCollectorApplication.Controllers
         public void GetLatLong(Client client)
         {
             GoogleMap myMap = new GoogleMap();
-            string strurltest = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address+ ",+Belgium,+"+client.State+"&key=";
+            string strurltest = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address+ ",+"+client.City+",+"+client.State+ "&key="; 
             WebRequest requestObject = WebRequest.Create(strurltest);
             requestObject.Method = "GET";
             HttpWebResponse responseObject = null;
@@ -155,6 +155,8 @@ namespace TrashCollectorApplication.Controllers
             myMap = JsonConvert.DeserializeObject<GoogleMap>(strresulttest);
             float lat = myMap.results[0].geometry.location.lat;
             float longitutde = myMap.results[0].geometry.location.lng;
+            ViewBag.Lat = lat;
+            ViewBag.Long = longitutde;
 
         }
 
@@ -182,14 +184,14 @@ namespace TrashCollectorApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 
     public class GoogleMap

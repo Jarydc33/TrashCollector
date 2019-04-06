@@ -18,14 +18,13 @@ namespace TrashCollectorApplication.Models
         [Display(Name = "Amount Owed : $")]
         public int AmountOwed { get; set; }
         public bool AccountSuspended { get; set; }
-        public bool OneTimePickup { get; set; }
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
+        public string City { get; set; }
         public string State { get; set; }
         public string Address { get; set; }
         public string SuspensionStart { get; set; }
         public string SuspensionEnd { get; set; }
-        public bool PickupComplete { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId {get;set; }
