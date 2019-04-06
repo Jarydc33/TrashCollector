@@ -6,6 +6,10 @@
 
 <h1>THIS IS THE CLIENTS PAGE</h1>
 
+<p>Would you like to view Employees or Clients?</p>
+@Html.ActionLink("Employee", "AllEmployees") |
+@Html.ActionLink("Clients","AllClients")
+
 @Html.ActionLink("Edit Your Account", "Edit", new { id = Model.id })
 @Html.ActionLink("Request a One Time Pickup", "RequestPickup", new { id = Model.id })
 @Html.ActionLink("View Your Account", "Details", new {id= Model.id }) 

@@ -141,7 +141,7 @@ namespace TrashCollectorApplication.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            ViewBag.Name = new SelectList(context.Roles.Where(u => u.Name.Contains("Client")).ToList(), "Name", "Name");
             return View();
         }
 
@@ -167,19 +167,19 @@ namespace TrashCollectorApplication.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-                    if (model.UserRoles == "Client")
-                    {
+                    //if (model.UserRoles == "Client")
+                    //{
                         return RedirectToAction("Create", "Clients");
-                    }
-                    else if(model.UserRoles == "Employee")
-                    {
-                        return RedirectToAction("Create", "Employees");
-                    }
+                    //}
+                    //else if(model.UserRoles == "Employee")
+                    //{
+                    //    return RedirectToAction("Create", "Employees");
+                    //}
 
                     //send them to their appropriate create based on model.Role?
-                    return RedirectToAction("Index", "User");
+                    //return RedirectToAction("Index", "User");
                 }
-                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+                //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
                 AddErrors(result);
             }
 
