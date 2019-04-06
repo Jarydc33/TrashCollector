@@ -14,10 +14,10 @@ namespace TrashCollectorApplication.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Administrators
+        
         public ActionResult Index()
         {
-            return View(db.Administrators.ToList());
+            return View();
         }
 
         // GET: Administrators/Details/5
@@ -39,6 +39,13 @@ namespace TrashCollectorApplication.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+        public ActionResult AllEmployees()
+        {
+            var allEmployees = db.Employees.ToList();
+            
+            return View(allEmployees);
         }
 
         // POST: Administrators/Create
@@ -71,6 +78,45 @@ namespace TrashCollectorApplication.Controllers
                 return HttpNotFound();
             }
             return View(administrator);
+        }
+
+        public ActionResult EmployeeEdit(int? id)
+        {
+            Employee employee = db.Employees.Find(id);
+            return View(employee);
+        }
+
+        public ActionResult ClientEdit(int? id)
+        {
+            Client client = db.Clients.Find(id);
+            return View(client);
+        }
+
+        [HttpPost]
+        public ActionResult EmployeeEdit(Employee employee)
+        {
+            Employee editedEmployee = db.Employees.Where(e => e.id == employee.id).FirstOrDefault();
+            editedEmployee.ZipCode = employee.ZipCode;
+            editedEmployee.FirstName = employee.FirstName;
+            editedEmployee.LastName = employee.LastName;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult ClientEdit(Client client)
+        {
+            Client editedClient = db.Clients.Where(e => e.id == client.id).FirstOrDefault();
+            editedClient.ZipCode = client.ZipCode;
+            editedClient.FirstName = client.FirstName;
+            editedClient.LastName = client.LastName;
+            editedClient.State = client.State;
+            editedClient.Address = client.Address;
+            editedClient.City = client.City;
+            editedClient.SuspensionEndDate = client.SuspensionEndDate;
+            editedClient.SuspensionStartDate = client.SuspensionStartDate;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: Administrators/Edit/5

@@ -15,7 +15,8 @@
 @using (Html.BeginForm())
 {
 <div class="form-horizontal">
-        <div class="form-group">
+    <div class="form-group">Please select the day to filter by.</div>
+    <div class="form-group">
         @Html.DropDownList("dayOfWeek", (SelectList)ViewBag.DayList,"Select Day", new { @class = "form-control"})
     </div>
     <div class="form-group">

@@ -1,7 +1,62 @@
 ﻿@model IEnumerable<TrashCollectorApplication.Models.Client>
 @{
-    ViewBag.Title = "AllClients";
+    ViewBag.Title = "AllEmployees";
 }
 
-<h2>AllClients</h2>
+<h2>AllEmployees</h2>
 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("First Name")
+        </th>
+        <th>
+            @Html.DisplayName("Last Name")
+        </th>
+        <th>
+            @Html.DisplayName("Zip Code")
+        </th>
+        <th></th>
+
+
+
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AmountOwed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SuspensionStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SuspensionEndDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit Employee Details", "EmployeeEdit", new { id = item.id }) |
+            @Html.ActionLink("Delete Employee", "Delete", new { id = item.id }) |
+            @Html.ActionLink("View Employee Details", "EmployeeDetails", new { id = item.id }) |
+        </td>
+    </tr>
+    }
+
+</table>

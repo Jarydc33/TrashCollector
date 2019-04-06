@@ -6,16 +6,12 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<p>Would you like to view Employees or Clients?</p>
+@Html.ActionLink("Employee", "AllEmployees") |
+@Html.ActionLink("Clients", "AllClients")
 <table class="table">
     <tr>
         <td>
-            @Html.ActionLink("Create an Employee or User", "Create") |
-            @Html.ActionLink("Edit an Employee or User", "Edit") |
-            @Html.ActionLink("Details", "Details") |
-            @Html.ActionLink("Delete", "Delete" )
         </td>
     </tr>
 
