@@ -44,8 +44,13 @@ namespace TrashCollectorApplication.Controllers
         public ActionResult AllEmployees()
         {
             var allEmployees = db.Employees.ToList();
-            
             return View(allEmployees);
+        }
+
+        public ActionResult AllClients()
+        {
+            var allClients = db.Clients.ToList();
+            return View(allClients);
         }
 
         // POST: Administrators/Create
@@ -124,7 +129,7 @@ namespace TrashCollectorApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,UserName,Password")] Administrator administrator)
+        public ActionResult Edit(Administrator administrator)
         {
             if (ModelState.IsValid)
             {
