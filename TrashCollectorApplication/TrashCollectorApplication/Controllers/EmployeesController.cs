@@ -62,7 +62,7 @@ namespace TrashCollectorApplication.Controllers
             Client client = db.Clients.Find(id);
             client.AmountOwed += 35;
             db.SaveChanges();
-            return RedirectToAction("FilterByZip");
+            return RedirectToAction("Index");
         }
 
 
@@ -188,26 +188,12 @@ namespace TrashCollectorApplication.Controllers
 
         }
 
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            return View(employee);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
+            Client client = db.Clients.Find(id);
+            ApplicationUser user = db.Users.Where(u => u.Id == client.ApplicationUserId).FirstOrDefault();
+            db.Clients.Remove(client);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
