@@ -43,9 +43,10 @@ namespace TrashCollectorApplication.Controllers
             return View();
         }
 
-        public ActionResult CreateEmployee()
+        public ActionResult CreateEmployee(string correctId)
         {
             Employee employeeToAdd = new Employee();
+            employeeToAdd.ApplicationUserId = correctId;
             return View(employeeToAdd);
         }
 

@@ -130,9 +130,27 @@ namespace TrashCollectorApplication.Controllers
         public ActionResult InitializeMap(int? id)
         {
             Client client = db.Clients.Find(id);
+            List<float> allLatLongs = new List<float>();
             GetLatLong(client);
-            //ViewBag.Key = "https://maps.googleapis.com/maps/api/js?key=" + MyKey.key + "& callback=initMap";
-            return View(client);
+            allLatLongs.Add(ViewBag.Lat);
+            allLatLongs.Add(ViewBag.Long);
+            return View(allLatLongs);
+        }
+
+        public ActionResult ViewAllClients()
+        {
+            var allClients = db.Clients.ToList();
+            List<float> allLatLongs = new List<float>();
+            foreach (var client in allClients)
+            {
+                if(client.Address != null)
+                {
+                    GetLatLong(client);
+                    allLatLongs.Add(ViewBag.Lat);
+                    allLatLongs.Add(ViewBag.Long);
+                }
+            }
+            return View("InitializeMap",allLatLongs);
         }
 
         public void GetLatLong(Client client)
@@ -152,9 +170,19 @@ namespace TrashCollectorApplication.Controllers
                 sr.Close();
             }
 
+            float lat;
+            float longitutde;
+
             myMap = JsonConvert.DeserializeObject<GoogleMap>(strresulttest);
-            float lat = myMap.results[0].geometry.location.lat;
-            float longitutde = myMap.results[0].geometry.location.lng;
+            try
+            {
+                lat = myMap.results[0].geometry.location.lat;
+                longitutde = myMap.results[0].geometry.location.lng;
+            }
+            catch
+            {
+                return;
+            }
             ViewBag.Lat = lat;
             ViewBag.Long = longitutde;
 
