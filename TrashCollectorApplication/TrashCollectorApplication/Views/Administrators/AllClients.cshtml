@@ -16,6 +16,7 @@
         <th>
             @Html.DisplayName("Zip Code")
         </th>
+        
         <th></th>
 
 
@@ -52,9 +53,9 @@
             @Html.DisplayFor(modelItem => item.SuspensionEndDate)
         </td>
         <td>
-            @Html.ActionLink("Edit Employee Details", "EmployeeEdit", new { id = item.id }) |
-            @Html.ActionLink("Delete Employee", "Delete", new { id = item.id }) |
-            @Html.ActionLink("View Employee Details", "EmployeeDetails", new { id = item.id }) |
+            @Html.ActionLink("Edit Client Details", "ClientEdit", new { id = item.id }) |
+            @Html.ActionLink("Delete Client", "DeleteClient", new { id = item.id }) |
+            @Html.ActionLink("View Client Details", "ClientDetails", new { id = item.id }) |
         </td>
     </tr>
     }

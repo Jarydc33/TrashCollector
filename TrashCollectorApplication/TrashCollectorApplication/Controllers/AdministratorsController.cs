@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TrashCollectorApplication.Models;
@@ -20,7 +23,6 @@ namespace TrashCollectorApplication.Controllers
             return View();
         }
 
-        // GET: Administrators/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,7 +37,40 @@ namespace TrashCollectorApplication.Controllers
             return View(administrator);
         }
 
-        // GET: Administrators/Create
+        public ActionResult CreateAccount()
+        {
+            ViewBag.CreateAccount = new SelectList(db.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            return View();
+        }
+
+        public ActionResult CreateEmployee()
+        {
+            Employee employeeToAdd = new Employee();
+            return View(employeeToAdd);
+        }
+
+        [HttpPost]
+        public ActionResult CreateEmployee(Employee employee)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            employee.ApplicationUserId = currentUserId;
+            db.Employees.Add(employee);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult EmployeeDetails(int? id)
+        {
+            Employee employeeToFind = db.Employees.Find(id);
+            return View(employeeToFind);
+        }
+
+        public ActionResult ClientDetails(int? id)
+        {
+            Client clientToFind = db.Clients.Find(id);
+            return View(clientToFind);
+        }
+
         public ActionResult Create()
         {
             return View();
@@ -53,9 +88,6 @@ namespace TrashCollectorApplication.Controllers
             return View(allClients);
         }
 
-        // POST: Administrators/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,UserName,Password")] Administrator administrator)
@@ -70,7 +102,6 @@ namespace TrashCollectorApplication.Controllers
             return View(administrator);
         }
 
-        // GET: Administrators/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -124,9 +155,6 @@ namespace TrashCollectorApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: Administrators/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Administrator administrator)
@@ -140,7 +168,6 @@ namespace TrashCollectorApplication.Controllers
             return View(administrator);
         }
 
-        // GET: Administrators/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -155,13 +182,28 @@ namespace TrashCollectorApplication.Controllers
             return View(administrator);
         }
 
-        // POST: Administrators/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Administrator administrator = db.Administrators.Find(id);
             db.Administrators.Remove(administrator);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteEmployee(int id)
+        {
+            Employee employeeToDelete = db.Employees.Find(id);
+            db.Employees.Remove(employeeToDelete);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteClient(int id)
+        {
+            Client clientToDelete = db.Clients.Find(id);
+            db.Clients.Remove(clientToDelete);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

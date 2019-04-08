@@ -404,6 +404,11 @@
     <Content Include="Views\Administrators\AllClients.cshtml" />
     <Content Include="Views\Administrators\EmployeeEdit.cshtml" />
     <Content Include="Views\Administrators\ClientEdit.cshtml" />
+    <Content Include="Views\Administrators\EmployeeDetails.cshtml" />
+    <Content Include="Views\Administrators\ClientDetails.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Administrators\CreateAccount.cshtml" />
+    <Content Include="Views\Administrators\CreateEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

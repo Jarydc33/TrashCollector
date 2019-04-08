@@ -187,6 +187,52 @@ namespace TrashCollectorApplication.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AdminCreate(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    if (model.UserRoles == "Client")
+                    {
+                        Client client = new Client();
+                        string currentUserId = User.Identity.GetUserId();
+                        client.ApplicationUserId = currentUserId;
+                        client.OneTimePickupDate = null;
+                        client.SuspensionStartDate = null;
+                        client.SuspensionEndDate = null;
+                        context.Clients.Add(client);
+                        context.SaveChanges();
+                        return RedirectToAction("Index","Administrators");
+                    }
+                    else if (model.UserRoles == "Employee")
+                    {
+                        return RedirectToAction("CreateEmployee", "Administrators");
+                    }
+                    return RedirectToAction("Index", "User");
+                }
+                //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
