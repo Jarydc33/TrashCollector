@@ -75,9 +75,9 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
+                @Html.ActionLink("Delete", "DeleteConfirmed", new { id = item.id }) |
                 @Html.ActionLink("View User", "Details", new { id = item.id}) |
-                @Html.ActionLink("Confirm Pickup", "Confirm", new { id = item.id})
+                @Html.ActionLink("Confirm Pickup", "Confirm", new { id = item.id}) |
                 @Html.ActionLink("View Address on Map", "InitializeMap", new { id = item.id})
             </td>
         </tr>

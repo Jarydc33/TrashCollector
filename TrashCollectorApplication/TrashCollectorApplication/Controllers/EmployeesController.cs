@@ -102,52 +102,58 @@ namespace TrashCollectorApplication.Controllers
         }
         public ActionResult Edit(int? id)
         {
+            Client client = db.Clients.Find(id);
+            client.PickupDays = db.PickupDays.ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            return View(employee);
+            return View(client);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,UserName,Password,FirstName,LastName,EmployeeId")] Employee employee)
+        public ActionResult Edit(Client client)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(employee).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(employee);
+            var clientToEdit = db.Clients.Single(c => c.id == client.id);
+            clientToEdit.FirstName = client.FirstName;
+            clientToEdit.LastName = client.LastName;
+            clientToEdit.ZipCode = client.ZipCode;
+            clientToEdit.State = client.State;
+            clientToEdit.Address = client.Address;
+            clientToEdit.PickupDayId = client.PickupDayId;
+            client.PickupDays = db.PickupDays.ToList();
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        public ActionResult InitializeMap(int? id)
+        public ActionResult InitializeMap(int? id, List<float[]> allLatLongs)
         {
-            Client client = db.Clients.Find(id);
-            List<float> allLatLongs = new List<float>();
-            GetLatLong(client);
-            allLatLongs.Add(ViewBag.Lat);
-            allLatLongs.Add(ViewBag.Long);
+            if(id != null)
+            {
+                Client client = db.Clients.Find(id);
+                float[] data = new float[2];
+                GetLatLong(client);
+                data[0] = ViewBag.Lat;
+                data[1] = ViewBag.Long;
+                allLatLongs.Add(data);
+            }
             return View(allLatLongs);
         }
 
         public ActionResult ViewAllClients()
         {
             var allClients = db.Clients.ToList();
-            List<float> allLatLongs = new List<float>();
+            List<float[]> allLatLongs = new List<float[]>();
             foreach (var client in allClients)
             {
-                if(client.Address != null)
+                float[] data = new float[2];
+                if (client.Address != null)
                 {
                     GetLatLong(client);
-                    allLatLongs.Add(ViewBag.Lat);
-                    allLatLongs.Add(ViewBag.Long);
+                    data[0] = ViewBag.Lat;
+                    data[1] = ViewBag.Long;
+                    allLatLongs.Add(data);
                 }
             }
             return View("InitializeMap",allLatLongs);

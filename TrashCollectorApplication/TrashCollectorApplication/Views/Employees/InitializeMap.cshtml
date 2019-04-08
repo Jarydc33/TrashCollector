@@ -1,4 +1,4 @@
-﻿@model IEnumerable<float>
+﻿@*@model IEnumerable<float>
     @{
         ViewBag.Title = "View";
     }
@@ -30,8 +30,54 @@
                 });
             }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlfGYqynKO4m6WcJH7Fan-OR0z7s-kR8A&callback=initMap"
                 async defer></script>
 
 
-    </div>
+    </div>*@
+
+@model IEnumerable<float[]>
+@{
+    ViewBag.Title = "View";
+}
+
+
+<style>
+
+    #map {
+        height: 400px;
+        width: 700px;
+    }
+</style>
+<br />
+<div class="row">
+    <div id="map"></div>
+    <script>
+                    
+            var map;
+            function initMap() {
+                var myLatLng = { lat: @ViewBag.Lat, lng: @ViewBag.Long }
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 8,
+                    center : myLatLng
+                });
+                var marker;
+                for (var i = 0; i < model.length; i++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(model[i][0],model[i][1],
+                        map: map,
+                        )
+                    });
+                }
+                    //marker = new google.maps.Marker({
+                    //position: myLatLng,
+                    //map: map,
+                    //title: 'Hello World!'
+                    //});
+            }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlfGYqynKO4m6WcJH7Fan-OR0z7s-kR8A&callback=initMap"
+            async defer></script>
+
+
+</div>
