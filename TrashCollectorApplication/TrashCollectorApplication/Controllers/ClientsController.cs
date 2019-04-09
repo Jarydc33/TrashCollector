@@ -147,6 +147,7 @@ namespace TrashCollectorApplication.Controllers
                 clientToEdit.Longitutde = coords[1];
             }
             clientToEdit.PickupDayId = client.PickupDayId;
+            clientToEdit.OneTimePickupDate = client.OneTimePickupDate;
             client.PickupDays = db.PickupDays.ToList();
             db.SaveChanges();
 
