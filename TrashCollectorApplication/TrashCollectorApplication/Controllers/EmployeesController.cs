@@ -31,6 +31,7 @@ namespace TrashCollectorApplication.Controllers
                 {
                     client.PickupDays = db.PickupDays.ToList();
                 }
+                TempData["myModel"] = clientsByZip;
                 return View(clientsByZip);
             }
             else
@@ -52,6 +53,7 @@ namespace TrashCollectorApplication.Controllers
                 {
                     clients.PickupDays = db.PickupDays.ToList();
                 }
+                TempData["myModel"] = clientsByDay;
                 return View(clientsByDay);
             }
             
@@ -150,19 +152,21 @@ namespace TrashCollectorApplication.Controllers
             return View();
         }
 
-        public ActionResult ViewAllClients()
+        public ActionResult ViewAllClients(List<Client> clients)
         {
+            List<Client> model = TempData["myModel"] as List<Client>;
             List<float> latLongs = new List<float>();
-            string currentUserId = User.Identity.GetUserId();
-            Employee currentEmployee = db.Employees.Where(e => e.ApplicationUserId == currentUserId).FirstOrDefault();
-            var allClients = db.Clients.Where(c => c.ZipCode == currentEmployee.ZipCode).ToList();
-            foreach(var client in allClients)
+            //string currentUserId = User.Identity.GetUserId();
+            //Employee currentEmployee = db.Employees.Where(e => e.ApplicationUserId == currentUserId).FirstOrDefault();
+            //var allClients = db.Clients.Where(c => c.ZipCode == currentEmployee.ZipCode).ToList();
+            //var allClients = model;
+            foreach(var client in model)
             {
                 latLongs.Add(client.Latitude);
                 latLongs.Add(client.Longitutde);
             }
             ViewBag.LatLongs = latLongs;
-            return View("InitializeMap");
+            return View("InitializeMap",model);
         }
 
         public ActionResult DeleteConfirmed(int id)

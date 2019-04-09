@@ -55,21 +55,6 @@
     <script>
 
         function initMap() {
-            
-            @*@{ 
-                //var locations = ViewBag.LatLongs.ToList();
-                var locations = new List<float>();
-                var locationCount = new List<int>();
-                foreach(var item in ViewBag.LatLongs)
-                {
-                    locations.Add(item);
-                }
-                foreach(var item in ViewBag.LatLongCount)
-                {
-                    locationCount.Add(item);
-                }
-                var i = 0;
-            }*@
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 13,
@@ -80,7 +65,6 @@
             var infowindow = new google.maps.InfoWindow({});
 
             var allLatLongs = @Html.Raw(Json.Encode(ViewBag.LatLongs));
-            console.log(allLatLongs);
 
             var marker, i
 
@@ -96,7 +80,6 @@
                     'click',
                     (function (marker, i) {
                 return function () {
-                    //infowindow.setContent(locations[i][0])
                     infowindow.open(map, marker)
                         }
             })(marker, i)
