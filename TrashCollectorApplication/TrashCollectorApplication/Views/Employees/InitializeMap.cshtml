@@ -30,7 +30,7 @@
                 });
             }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlfGYqynKO4m6WcJH7Fan-OR0z7s-kR8A&callback=initMap"
                 async defer></script>
 
 
@@ -55,20 +55,21 @@
     <script>
 
         function initMap() {
-           
-            var locations = new Array();
-            @{ 
-                foreach(var item in Model)
+            
+            @*@{ 
+                //var locations = ViewBag.LatLongs.ToList();
+                var locations = new List<float>();
+                var locationCount = new List<int>();
+                foreach(var item in ViewBag.LatLongs)
                 {
-                    
+                    locations.Add(item);
                 }
-            }
-
-            //var locations = [
-            //    [broadway.info, broadway.lat, broadway.long, 0],
-            //    [belmont.info, belmont.lat, belmont.long, 1],
-            //    [sheridan.info, sheridan.lat, sheridan.long, 2],
-            //]
+                foreach(var item in ViewBag.LatLongCount)
+                {
+                    locationCount.Add(item);
+                }
+                var i = 0;
+            }*@
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 13,
@@ -76,25 +77,29 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
             })
 
-            var infowindow = new google.maps.InfoWindow({})
+            var infowindow = new google.maps.InfoWindow({});
+
+            var allLatLongs = @Html.Raw(Json.Encode(ViewBag.LatLongs));
+            console.log(allLatLongs);
 
             var marker, i
 
-            for (i = 0; i < locations.length; i + 2) {
+            for (i = 0; i < allLatLongs.length; i += 2) {
+
                 marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i], locations[i + 1]),
+                    position: new google.maps.LatLng(allLatLongs[i], allLatLongs[i+1]),
                     map: map,
                 })
-
+                
                 google.maps.event.addListener(
                     marker,
                     'click',
                     (function (marker, i) {
-                        return function () {
-                            //infowindow.setContent(locations[i][0])
-                            infowindow.open(map, marker)
+                return function () {
+                    //infowindow.setContent(locations[i][0])
+                    infowindow.open(map, marker)
                         }
-                    })(marker, i)
+            })(marker, i)
                 )
             }
         }

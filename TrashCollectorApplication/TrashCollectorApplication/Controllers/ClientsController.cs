@@ -189,7 +189,7 @@ namespace TrashCollectorApplication.Controllers
         public static float[] GetLatLong(Client client)
         {
             GoogleMap myMap = new GoogleMap();
-            string strurltest = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address + ",+" + client.City + ",+" + client.State + "&key=AIzaSyAlfGYqynKO4m6WcJH7Fan-OR0z7s-kR8A";
+            string strurltest = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address + ",+" + client.City + ",+" + client.State + "&key=";
             WebRequest requestObject = WebRequest.Create(strurltest);
             requestObject.Method = "GET";
             HttpWebResponse responseObject = null;

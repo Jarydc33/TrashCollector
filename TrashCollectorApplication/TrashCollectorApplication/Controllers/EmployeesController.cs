@@ -134,25 +134,38 @@ namespace TrashCollectorApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult InitializeMap(int? id, List<float[]> allLatLongs)
-        {
-            //if(id != null)
-            //{
-            //    Client client = db.Clients.Find(id);
-            //    float[] data = new float[2];
-            //    GetLatLong(client);
-            //    data[0] = ViewBag.Lat;
-            //    data[1] = ViewBag.Long;
-            //    allLatLongs.Add(data);
-            //}
+        public ActionResult InitializeMap(int? id)
+        {            
+            if (id != null)
+            {
+                List<Client> allClients = new List<Client>();
+                Client client = db.Clients.Find(id);
+                allClients.Add(client);
+                List<float> latLongs = new List<float>();
+                latLongs.Add(client.Latitude);
+                latLongs.Add(client.Longitutde);
+                ViewBag.LatLongs = latLongs;
+                
+            }
             return View();
         }
 
         public ActionResult ViewAllClients()
         {
+            List<float> latLongs = new List<float>();
+            List<int> temp = new List<int>();
+            int i = 0;
             var allClients = db.Clients.ToList();
-            List<float> allLatLongs = new List<float>();
-            return View("InitializeMap",allLatLongs);
+            foreach(var client in allClients)
+            {
+                latLongs.Add(client.Latitude);
+                latLongs.Add(client.Longitutde);
+                temp.Add(i);
+                i++;
+            }
+            ViewBag.LatLongs = latLongs;
+            ViewBag.LatLongCount = temp;
+            return View("InitializeMap");
         }
 
         public ActionResult DeleteConfirmed(int id)
