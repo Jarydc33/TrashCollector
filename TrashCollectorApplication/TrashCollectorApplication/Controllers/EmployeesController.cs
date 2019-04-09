@@ -153,18 +153,15 @@ namespace TrashCollectorApplication.Controllers
         public ActionResult ViewAllClients()
         {
             List<float> latLongs = new List<float>();
-            List<int> temp = new List<int>();
-            int i = 0;
-            var allClients = db.Clients.ToList();
+            string currentUserId = User.Identity.GetUserId();
+            Employee currentEmployee = db.Employees.Where(e => e.ApplicationUserId == currentUserId).FirstOrDefault();
+            var allClients = db.Clients.Where(c => c.ZipCode == currentEmployee.ZipCode).ToList();
             foreach(var client in allClients)
             {
                 latLongs.Add(client.Latitude);
                 latLongs.Add(client.Longitutde);
-                temp.Add(i);
-                i++;
             }
             ViewBag.LatLongs = latLongs;
-            ViewBag.LatLongCount = temp;
             return View("InitializeMap");
         }
 
