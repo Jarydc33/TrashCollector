@@ -73,18 +73,18 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.SuspensionEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.SuspensionEndDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SuspensionEndDate, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(model => model.SuspensionStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.SuspensionStartDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.SuspensionStartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SuspensionEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SuspensionEndDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SuspensionEndDate, "", new { @class = "text-danger" })
         </div>
     </div>
 

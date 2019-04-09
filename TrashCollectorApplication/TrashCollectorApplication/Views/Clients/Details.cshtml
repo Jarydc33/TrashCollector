@@ -75,14 +75,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PickupDay.id)
+            @Html.DisplayNameFor(model => model.OneTimePickupDate)
         </dt>
 
         <dd>
-            @{ 
-                var day = Model.PickupDays.Where(model => model.id == Model.OneTimePickupDayId).FirstOrDefault();
-            }
-            @Html.DisplayFor(model => day.GarbagePickupDay)
+            @Html.DisplayFor(model => model.OneTimePickupDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuspensionStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuspensionStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuspensionEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuspensionEndDate)
         </dd>
 
     </dl>

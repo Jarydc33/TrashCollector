@@ -23,20 +23,6 @@ namespace TrashCollectorApplication.Controllers
             return View();
         }
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Administrator administrator = db.Administrators.Find(id);
-            if (administrator == null)
-            {
-                return HttpNotFound();
-            }
-            return View(administrator);
-        }
-
         public ActionResult CreateAccount()
         {
             ViewBag.CreateAccount = new SelectList(db.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
@@ -72,11 +58,6 @@ namespace TrashCollectorApplication.Controllers
             return View(clientToFind);
         }
 
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         public ActionResult AllEmployees()
         {
             var allEmployees = db.Employees.ToList();
@@ -87,34 +68,6 @@ namespace TrashCollectorApplication.Controllers
         {
             var allClients = db.Clients.ToList();
             return View(allClients);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,UserName,Password")] Administrator administrator)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Administrators.Add(administrator);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(administrator);
-        }
-
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Administrator administrator = db.Administrators.Find(id);
-            if (administrator == null)
-            {
-                return HttpNotFound();
-            }
-            return View(administrator);
         }
 
         public ActionResult EmployeeEdit(int? id)
@@ -148,47 +101,17 @@ namespace TrashCollectorApplication.Controllers
             editedClient.FirstName = client.FirstName;
             editedClient.LastName = client.LastName;
             editedClient.State = client.State;
-            editedClient.Address = client.Address;
             editedClient.City = client.City;
+            if (editedClient.Address != client.Address)
+            {
+                editedClient.Address = client.Address;
+                float[] coords = ClientsController.GetLatLong(client);
+                editedClient.Latitude = coords[0];
+                editedClient.Longitutde = coords[1];
+            }
+            editedClient.AmountOwed = client.AmountOwed;
             editedClient.SuspensionEndDate = client.SuspensionEndDate;
             editedClient.SuspensionStartDate = client.SuspensionStartDate;
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Administrator administrator)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(administrator).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(administrator);
-        }
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Administrator administrator = db.Administrators.Find(id);
-            if (administrator == null)
-            {
-                return HttpNotFound();
-            }
-            return View(administrator);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Administrator administrator = db.Administrators.Find(id);
-            db.Administrators.Remove(administrator);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -153,39 +153,6 @@ namespace TrashCollectorApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        //public ActionResult Delete(int? id) //Keep this?
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Client client = db.Clients.Find(id);
-        //    if (client == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(client);
-        //}
-
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Client client = db.Clients.Find(id);
-        //    db.Clients.Remove(client);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
         public ActionResult MakePayment(int? id)
         {
             Client client = db.Clients.Find(id);
