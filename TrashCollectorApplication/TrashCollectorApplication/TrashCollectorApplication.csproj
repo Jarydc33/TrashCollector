@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201904061737240_NullableDateTime.Designer.cs">
       <DependentUpon>201904061737240_NullableDateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904082043099_AddedLatLong.cs" />
+    <Compile Include="Migrations\201904082043099_AddedLatLong.Designer.cs">
+      <DependentUpon>201904082043099_AddedLatLong.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -484,6 +488,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904061737240_NullableDateTime.resx">
       <DependentUpon>201904061737240_NullableDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904082043099_AddedLatLong.resx">
+      <DependentUpon>201904082043099_AddedLatLong.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

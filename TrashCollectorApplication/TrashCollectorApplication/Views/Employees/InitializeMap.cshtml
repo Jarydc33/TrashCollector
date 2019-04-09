@@ -30,13 +30,13 @@
                 });
             }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlfGYqynKO4m6WcJH7Fan-OR0z7s-kR8A&callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
                 async defer></script>
 
 
     </div>*@
 
-@model IEnumerable<float[]>
+@model IEnumerable<TrashCollectorApplication.Models.Client>
 @{
     ViewBag.Title = "View";
 }
@@ -53,30 +53,54 @@
 <div class="row">
     <div id="map"></div>
     <script>
+
+        function initMap() {
+           
+            var locations = new Array();
+            @{ 
+                foreach(var item in Model)
+                {
                     
-            var map;
-            function initMap() {
-                var myLatLng = { lat: @ViewBag.Lat, lng: @ViewBag.Long }
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 8,
-                    center : myLatLng
-                });
-                var marker;
-                for (var i = 0; i < model.length; i++) {
-                    marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(model[i][0],model[i][1],
-                        map: map,
-                        )
-                    });
                 }
-                    //marker = new google.maps.Marker({
-                    //position: myLatLng,
-                    //map: map,
-                    //title: 'Hello World!'
-                    //});
             }
+
+            //var locations = [
+            //    [broadway.info, broadway.lat, broadway.long, 0],
+            //    [belmont.info, belmont.lat, belmont.long, 1],
+            //    [sheridan.info, sheridan.lat, sheridan.long, 2],
+            //]
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: new google.maps.LatLng(41.976816, -87.659916),
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+            })
+
+            var infowindow = new google.maps.InfoWindow({})
+
+            var marker, i
+
+            for (i = 0; i < locations.length; i + 2) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i], locations[i + 1]),
+                    map: map,
+                })
+
+                google.maps.event.addListener(
+                    marker,
+                    'click',
+                    (function (marker, i) {
+                        return function () {
+                            //infowindow.setContent(locations[i][0])
+                            infowindow.open(map, marker)
+                        }
+                    })(marker, i)
+                )
+            }
+        }
+
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlfGYqynKO4m6WcJH7Fan-OR0z7s-kR8A&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
             async defer></script>
 
 

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -100,6 +102,9 @@ namespace TrashCollectorApplication.Controllers
                 client.OneTimePickupDate = null;
                 client.SuspensionStartDate = null;
                 client.SuspensionEndDate = null;
+                float[] coords = GetLatLong(client);
+                client.Latitude = coords[0];
+                client.Longitutde = coords[1];
                 db.Clients.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -133,7 +138,14 @@ namespace TrashCollectorApplication.Controllers
             clientToEdit.LastName = client.LastName;
             clientToEdit.ZipCode = client.ZipCode;
             clientToEdit.State = client.State;
-            clientToEdit.Address = client.Address;
+            clientToEdit.City = client.City;
+            if(clientToEdit.Address != client.Address)
+            {
+                clientToEdit.Address = client.Address;
+                float[] coords = GetLatLong(client);
+                clientToEdit.Latitude = coords[0];
+                clientToEdit.Longitutde = coords[1];
+            }
             clientToEdit.PickupDayId = client.PickupDayId;
             client.PickupDays = db.PickupDays.ToList();
             db.SaveChanges();
@@ -141,7 +153,6 @@ namespace TrashCollectorApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Clients/Delete/5
         public ActionResult Delete(int? id) //Keep this?
         {
             if (id == null)
@@ -156,7 +167,6 @@ namespace TrashCollectorApplication.Controllers
             return View(client);
         }
 
-        // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -175,5 +185,65 @@ namespace TrashCollectorApplication.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+
+        public static float[] GetLatLong(Client client)
+        {
+            GoogleMap myMap = new GoogleMap();
+            string strurltest = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address + ",+" + client.City + ",+" + client.State + "&key=AIzaSyAlfGYqynKO4m6WcJH7Fan-OR0z7s-kR8A";
+            WebRequest requestObject = WebRequest.Create(strurltest);
+            requestObject.Method = "GET";
+            HttpWebResponse responseObject = null;
+            responseObject = (HttpWebResponse)requestObject.GetResponse();
+
+            string strresulttest = null;
+            using (Stream stream = responseObject.GetResponseStream())
+            {
+                StreamReader sr = new StreamReader(stream);
+                strresulttest = sr.ReadToEnd();
+                sr.Close();
+            }
+
+            float lat;
+            float longitutde;
+
+            myMap = JsonConvert.DeserializeObject<GoogleMap>(strresulttest);
+            try
+            {
+                lat = myMap.results[0].geometry.location.lat;
+                longitutde = myMap.results[0].geometry.location.lng;
+            }
+            catch
+            {
+                return null;
+            }
+            float[] coords = new float[2];
+            coords[0] = lat;
+            coords[1] = longitutde;
+            return coords;
+
+        }
+    }
+
+    public class GoogleMap
+    {
+        public Result[] results { get; set; }
+        public string status { get; set; }
+    }
+
+    public class Result
+    {
+        public Geometry geometry { get; set; }
+    }
+
+    public class Geometry
+    {
+        public Location location { get; set; }
+        public string location_type { get; set; }
+    }
+
+    public class Location
+    {
+        public float lat { get; set; }
+        public float lng { get; set; }
     }
 }

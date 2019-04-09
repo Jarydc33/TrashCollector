@@ -23,6 +23,8 @@ namespace TrashCollectorApplication.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Address { get; set; }
+        public float Latitude { get; set; }
+        public float Longitutde { get; set; }
         [Display(Name = "Suspension Start Date")]
         [DataType(DataType.Date)]
         public DateTime? SuspensionStartDate { get; set; }
