@@ -5,9 +5,9 @@
     var owed = Model.AmountOwed * 100;
 }
 
-<h2>MakePayment</h2>
+<h2>Make Payment</h2>
 @Html.HiddenFor(model => model.id)
-<form @*action="/MakePayment"*@ method="POST">
+<form method="POST">
     <article>
         <label>Amount: $@Model.AmountOwed</label>
     </article>

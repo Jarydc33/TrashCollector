@@ -31,7 +31,7 @@ namespace TrashCollectorApplication.Controllers
                 {
                     client.PickupDays = db.PickupDays.ToList();
                 }
-                TempData["myModel"] = clientsByZip;
+                TempData["myModel"] = clientsByZip; //same as HiddenFor?
                 return View(clientsByZip);
             }
             else

@@ -106,8 +106,6 @@ namespace TrashCollectorApplication.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
-        // POST: /Account/VerifyCode
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -118,10 +116,6 @@ namespace TrashCollectorApplication.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
-            // You can configure the account lockout settings in IdentityConfig
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
@@ -136,17 +130,13 @@ namespace TrashCollectorApplication.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            ViewBag.Name = new SelectList(context.Roles.Where(u => u.Name.Contains("Client")).ToList(), "Name", "Name");
             return View();
         }
 
-        //
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -167,21 +157,12 @@ namespace TrashCollectorApplication.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-                    if (model.UserRoles == "Client")
-                    {
-                        return RedirectToAction("Create", "Clients");
-                    }
-                    else if (model.UserRoles == "Employee")
-                    {
-                        return RedirectToAction("Create", "Employees");
-                    }
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("Create", "Clients");
                 }
-                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+                ViewBag.Name = new SelectList(context.Roles.Where(u => u.Name.Contains("Client")).ToList(), "Name", "Name");
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
