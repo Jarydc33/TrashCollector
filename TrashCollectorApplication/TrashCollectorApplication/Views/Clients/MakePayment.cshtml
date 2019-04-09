@@ -1,0 +1,21 @@
+﻿@model TrashCollectorApplication.Models.Client
+
+@{
+    ViewBag.Title = "MakePayment";
+    var owed = Model.AmountOwed * 100;
+}
+
+<h2>MakePayment</h2>
+@Html.HiddenFor(model => model.id)
+<form @*action="/MakePayment"*@ method="POST">
+    <article>
+        <label>Amount: $@Model.AmountOwed</label>
+    </article>
+    <script src="//checkout.stripe.com/v2/checkout.js"
+            class="stripe-button"
+            data-key="@ViewBag.StripePublishKey"
+            data-locale="auto"
+            data-description="Sample Charge"
+            data-amount="@owed">
+    </script>
+</form>

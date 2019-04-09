@@ -156,10 +156,6 @@ namespace TrashCollectorApplication.Controllers
         {
             List<Client> model = TempData["myModel"] as List<Client>;
             List<float> latLongs = new List<float>();
-            //string currentUserId = User.Identity.GetUserId();
-            //Employee currentEmployee = db.Employees.Where(e => e.ApplicationUserId == currentUserId).FirstOrDefault();
-            //var allClients = db.Clients.Where(c => c.ZipCode == currentEmployee.ZipCode).ToList();
-            //var allClients = model;
             foreach(var client in model)
             {
                 latLongs.Add(client.Latitude);

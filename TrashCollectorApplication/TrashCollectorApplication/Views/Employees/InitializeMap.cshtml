@@ -1,42 +1,4 @@
-﻿@*@model IEnumerable<float>
-    @{
-        ViewBag.Title = "View";
-    }
-
-
-    <style>
-
-        #map {
-            height: 400px;
-            width: 700px;
-        }
-    </style>
-    <br />
-    <div class="row">
-        <div id="map"></div>
-        <script>
-            var map;
-            function initMap() {
-                var myLatLng = { lat: @ViewBag.Lat, lng: @ViewBag.Long }
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 8,
-                    center : myLatLng
-                });
-
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    //title: 'Hello World!'
-                });
-            }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlfGYqynKO4m6WcJH7Fan-OR0z7s-kR8A&callback=initMap"
-                async defer></script>
-
-
-    </div>*@
-
-@model IEnumerable<TrashCollectorApplication.Models.Client>
+﻿@model IEnumerable<TrashCollectorApplication.Models.Client>
 @{
     ViewBag.Title = "View";
 }

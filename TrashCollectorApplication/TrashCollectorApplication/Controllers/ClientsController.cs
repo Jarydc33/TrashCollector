@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -185,6 +186,22 @@ namespace TrashCollectorApplication.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+
+        public ActionResult MakePayment(int? id)
+        {
+            Client client = db.Clients.Find(id);
+            var stripePublishKey = "";
+            ViewBag.StripePublishKey = stripePublishKey;
+            return View(client);
+        }
+        [HttpPost]
+        public ActionResult MakePayment(int id)
+        {
+            Client client = db.Clients.Find(id);
+            client.AmountOwed = 0;
+            db.SaveChanges();
+            return View(client);
+        }
 
         public static float[] GetLatLong(Client client)
         {
