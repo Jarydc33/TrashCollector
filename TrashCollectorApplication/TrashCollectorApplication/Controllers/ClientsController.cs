@@ -99,6 +99,10 @@ namespace TrashCollectorApplication.Controllers
             {
                 string currentUserId = User.Identity.GetUserId();
                 client.ApplicationUserId = currentUserId;
+                if(client.FirstName == null)
+                {
+                    client.FirstName = "Unknown";
+                }
                 client.OneTimePickupDate = null;
                 client.SuspensionStartDate = null;
                 client.SuspensionEndDate = null;
