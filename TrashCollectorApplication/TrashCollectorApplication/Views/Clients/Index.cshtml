@@ -2,13 +2,39 @@
 
 @{
     ViewBag.Title = "Welcome";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 
-<h1>THIS IS THE CLIENTS PAGE</h1>
+<h3>Welcome, @Model.FirstName. This is your client home page.</h3>
 
+<table class="table">
 
+    <tr>
+        <td>
+            @Html.ActionLink("Edit Your Account", "Edit", new { id = Model.id })
+        </td>
+    </tr>
 
-@Html.ActionLink("Edit Your Account", "Edit", new { id = Model.id }) |
+    <tr>
+        <td>
+            @Html.ActionLink("Request a One Time Pickup", "RequestPickup", new { id = Model.id })
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink("View Your Account", "Details", new { id = Model.id })
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink("Suspend Your Pickups", "SuspendPickups", new { id = Model.id }) 
+        </td>
+    </tr>
+</table>
+
+@*@Html.ActionLink("Edit Your Account", "Edit", new { id = Model.id }) |
 @Html.ActionLink("Request a One Time Pickup", "RequestPickup", new { id = Model.id }) |
 @Html.ActionLink("View Your Account", "Details", new {id= Model.id }) |
-@Html.ActionLink("Suspend Your Pickups", "SuspendPickups", new { id = Model.id }) |
+@Html.ActionLink("Suspend Your Pickups", "SuspendPickups", new { id = Model.id }) |*@
