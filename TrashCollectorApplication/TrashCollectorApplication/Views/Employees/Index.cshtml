@@ -9,7 +9,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("View All Currently Selected Clients On Map", "ViewAllClients", new { clients = Model})
+    @Html.ActionLink("View These Clients On The Map", "ViewAllClients")
 
 </p>
 
@@ -27,8 +27,6 @@
     </div>
 </div>
 }
-
-
 
 <table class="table">
     <tr>
@@ -48,8 +46,6 @@
             @Html.DisplayName("One-time Pickup")
         </th>
         <th></th>
-
-
 
     </tr>
     @foreach (var item in Model)
@@ -74,8 +70,6 @@
                 @Html.DisplayFor(model => day.GarbagePickupDay)
             </td>
             <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Delete", "DeleteConfirmed", new { id = item.id }) |*@
                 @Html.ActionLink("View User", "Details", new { id = item.id}) |
                 @Html.ActionLink("Confirm Pickup", "Confirm", new { id = item.id}) |
                 @Html.ActionLink("View Address on Map", "InitializeMap", new { id = item.id})

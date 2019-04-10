@@ -402,7 +402,6 @@
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Clients\SuspendPickups.cshtml" />
     <Content Include="Views\Clients\RequestPickup.cshtml" />
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
@@ -423,6 +422,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

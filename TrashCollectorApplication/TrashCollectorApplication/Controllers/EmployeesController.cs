@@ -97,7 +97,7 @@ namespace TrashCollectorApplication.Controllers
             return View();
         }
 
-        public ActionResult ViewAllClients(List<Client> clients)
+        public ActionResult ViewAllClients()
         {
             List<Client> model = TempData["myModel"] as List<Client>;
             List<float> latLongs = new List<float>();

@@ -102,9 +102,12 @@ namespace TrashCollectorApplication.Controllers
                 client.OneTimePickupDate = null;
                 client.SuspensionStartDate = null;
                 client.SuspensionEndDate = null;
-                float[] coords = GetLatLong(client);
-                client.Latitude = coords[0];
-                client.Longitutde = coords[1];
+                if(client.Address != null)
+                {
+                    float[] coords = GetLatLong(client);
+                    client.Latitude = coords[0];
+                    client.Longitutde = coords[1];
+                }
                 db.Clients.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");
