@@ -147,10 +147,19 @@ namespace TrashCollectorApplication.Controllers
             clientToEdit.City = client.City;
             if(clientToEdit.Address != client.Address)
             {
-                clientToEdit.Address = client.Address;
-                float[] coords = GetLatLong(client);
-                clientToEdit.Latitude = coords[0];
-                clientToEdit.Longitutde = coords[1];
+                try
+                {
+                    clientToEdit.Address = client.Address;
+                    float[] coords = GetLatLong(client);
+                    clientToEdit.Latitude = coords[0];
+                    clientToEdit.Longitutde = coords[1];
+                }
+                catch
+                {
+                    clientToEdit.Latitude = 0;
+                    clientToEdit.Longitutde = 0;
+                }
+                
             }
             clientToEdit.PickupDayId = client.PickupDayId;
             clientToEdit.OneTimePickupDate = client.OneTimePickupDate;
@@ -163,7 +172,7 @@ namespace TrashCollectorApplication.Controllers
         public ActionResult MakePayment(int? id)
         {
             Client client = db.Clients.Find(id);
-            var stripePublishKey = "";
+            var stripePublishKey = "YOUR KEY HERE";
             ViewBag.StripePublishKey = stripePublishKey;
             return View(client);
         }
@@ -179,7 +188,7 @@ namespace TrashCollectorApplication.Controllers
         public static float[] GetLatLong(Client client)
         {
             GoogleMap myMap = new GoogleMap();
-            string url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address + ",+" + client.City + ",+" + client.State + "&key=";
+            string url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address + ",+" + client.City + ",+" + client.State + "&key=YOUR KEY HERE";
             WebRequest requestObject = WebRequest.Create(url);
             requestObject.Method = "GET";
             HttpWebResponse responseObject = null;
