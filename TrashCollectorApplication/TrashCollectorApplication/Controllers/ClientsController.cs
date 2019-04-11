@@ -21,8 +21,7 @@ namespace TrashCollectorApplication.Controllers
         public ActionResult Index()
         {
             string currentUserId = User.Identity.GetUserId();
-            Client user = new Client();
-            user = db.Clients.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault(); 
+            Client user = db.Clients.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
 
             return View(user);
         }
@@ -180,24 +179,24 @@ namespace TrashCollectorApplication.Controllers
         public static float[] GetLatLong(Client client)
         {
             GoogleMap myMap = new GoogleMap();
-            string strurltest = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address + ",+" + client.City + ",+" + client.State + "&key=";
-            WebRequest requestObject = WebRequest.Create(strurltest);
+            string url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + client.Address + ",+" + client.City + ",+" + client.State + "&key=";
+            WebRequest requestObject = WebRequest.Create(url);
             requestObject.Method = "GET";
             HttpWebResponse responseObject = null;
             responseObject = (HttpWebResponse)requestObject.GetResponse();
 
-            string strresulttest = null;
+            string urlResult = null;
             using (Stream stream = responseObject.GetResponseStream())
             {
                 StreamReader sr = new StreamReader(stream);
-                strresulttest = sr.ReadToEnd();
+                urlResult = sr.ReadToEnd();
                 sr.Close();
             }
 
             float lat;
             float longitutde;
 
-            myMap = JsonConvert.DeserializeObject<GoogleMap>(strresulttest);
+            myMap = JsonConvert.DeserializeObject<GoogleMap>(urlResult);
             try
             {
                 lat = myMap.results[0].geometry.location.lat;

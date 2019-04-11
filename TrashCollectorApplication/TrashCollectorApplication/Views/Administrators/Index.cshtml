@@ -6,14 +6,15 @@
 }
 
 
-<h2>Welcome to the employee home page.</h2>
+<h2>Admin Account.</h2>
 
 <p>Would you like to view Employees or Clients?</p>
-@Html.ActionLink("Employee", "AllEmployees") |
-@Html.ActionLink("Clients", "AllClients")
+
 <table class="table">
     <tr>
         <td>
+            @Html.ActionLink("Employee", "AllEmployees") |
+            @Html.ActionLink("Clients", "AllClients")
         </td>
     </tr>
 
